@@ -1,0 +1,11 @@
+\id FRT
+\periph Table of Contents
+\mt Lorem
+\s ipsum dolor
+\tr \th1 sit \thr2 amet, \th3 consectetuer \thr4 adipiscing
+\tr \tc1 elit. \tcr2 # \tc3 Aenean \tcr4 #
+\tr \tc1 commodo \tcr2 # \tc3 ligula eget dolor. \tcr4 #
+\tr \tc1 Aenean \tcr2 # \tc3 massa. \tcr4 #
+\s Cum sociis
+\tr \th1 natoque \thr2 penatibus \th3 et \thr4 magnis
+\tr \tc1 dis \tcr2 # \tc3 1 parturient \tcr4 #

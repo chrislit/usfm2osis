@@ -1,0 +1,9 @@
+\id FRT
+...
+\periph Title Page
+\mt1 Lorem ipsum
+\pc dolor sit amet,
+\pc \fig |gntLogo.jpg|span||||\fig*
+\pc \fig |absLogo.jpg|span||||\fig*
+\pc consectetuer adipiscing elit.
+\pc Aenean commodo

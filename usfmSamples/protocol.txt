@@ -1,0 +1,192 @@
+Filenames are to be:
+{6-digit code}_{tag}.usfm
+
+The first 2 digits of the 5-digit code indicate the section of the USFM
+reference in which the tag being tested occurs:
+00  Identification
+01  Introductions
+02  Titles, Headings, and Labels
+03  Chapters and Verses
+04  Paragraphs
+05  Poetry
+06  Tables
+07  Footnotes
+08  Cross References
+09  Special Test and Character Styles: Special Text
+10  Special Test and Character Styles: Charchter Styling
+11  Special Test and Character Styles: Spacing and Breaks
+12  Special Test and Character Styles: Special Features
+13  Peripherals
+14  Study Bible Content
+15  \z namespace
+20+ Will be reserved for tests not specific to particular features
+    of the USFM reference.
+
+The next 2 digits of the 5-digit code identify the USFM tag being tested:
+
+0000 \id
+0001 \ide
+0002 \sts
+0003 \rem
+0004 \h
+0005 \toc1
+0006 \toc2
+0007 \toc3
+0100 \imt #needs test of more than just \imt1
+0101 \is #ditto
+0102 \ip
+0103 \ipi
+0104 \im
+0105 \imi 
+0106 \ipq
+0107 \imq
+0108 \ipr
+0109 \iq #need test of \iq(no#)
+0110 \ib
+0111 \ili #need test of \ili(no#)
+0112 \iot
+0113 \io #need test of \io(no#) and \io(#>1)
+0114 \ior
+0115 \iex #need test
+0116 \iqt #need test
+0117 \imte #need tests with #s
+0118 \ie #need test
+0200 \mt
+0201 \mte
+0202 \ms
+0203 \mr
+0204 \s
+0205 \sr
+0206 \r
+0207 \rq
+0208 \d
+0209 \sp
+0300 \c
+0301 \ca
+0302 \cl
+0303 \cp
+0304 \cd
+0305 \v
+0306 \va
+0307 \vp
+0400 \p
+0401 \m
+0402 \pmo
+0403 \pm
+0404 \pmc
+0405 \pmr
+0406 \pi
+0407 \mi
+0408 \nb
+0409 \cls
+0410 \li
+0411 \pc
+0412 \pr #need test
+0413 \ph #need test
+0414 \b #need test that is distinctly poetry-external
+0500 \q 
+0501 \qr
+0502 \qc
+0503 \qs
+0504 \qa
+0505 \qac
+0506 \qm
+0507 \b
+0600 \tr
+0601 \th
+0602 \thr
+0603 \tc
+0604 \tcr
+0700 \f
+0701 \fe
+0702 \fr
+0703 \fk
+0704 \fq
+0705 \fqa
+0706 \fl #needs test
+0707 \fp #needs test
+0708 \fv
+0709 \ft
+0710 \fdc
+0711 \fm #needs test
+0800 \x
+0801 \xo
+0802 \xk #needs test
+0803 \xq #needs test
+0804 \xt
+0805 \xot #needs test
+0806 \xnt #needs test
+0807 \xdc
+0900 \add
+0901 \bk
+0902 \dc #needs test
+0903 \k #needs test
+0904 \lit 
+0905 \nd
+0906 \ord #needs test
+0907 \pn #needs test
+0908 \qt
+0909 \sig
+0910 \sls
+0911 \tl
+0912 \wj #needs test
+1000 \em #needs test
+1001 \bd #needs test
+1002 \it #needs test
+1003 \bdit #needs test
+1004 \no #needs test
+1005 \sc #needs test
+1100 ~ #needs test
+1101 //
+1102 \pb #needs test
+1200 \fig #needs test where ALL fields are filled
+1201 \ndx #needs test
+1202 \pro #needs test
+1203 \w #needs test
+1204 \wg #needs test
+1205 \wh #needs test
+1300 \periph
+1301 \periph Title Page
+1302 \periph Half Title Page
+1303 \periph Promotional Page #needs test
+1304 \periph Imprimatur #needs test
+1305 \periph Publication Data #needs test
+1306 \periph Foreword
+1307 \periph Preface
+1308 \periph Table of Contents
+1309 \periph Alphabetical Contents #needs test
+1310 \periph Table of Abbreviations
+1311 \periph Bible Introduction #needs test
+1312 \periph Old Testament Introduction
+1313 \periph Pentateuch Introduction
+1314 \periph History Introduction
+1315 \periph Poetry Introduction
+1316 \periph Prophecy Introduction
+1317 \periph New Testament Introduction
+1318 \periph Gospels Introduction
+1319 \periph Acts Introduction #needs test
+1320 \periph Epistles Introduction
+1321 \periph Letters Introduction
+1322 \periph Deuterocanon Introduction
+1323 \periph Chronology #needs test
+1324 \periph Weights and Measures #needs test
+1325 \periph Map Index
+1326 \periph NT Quotes from LXX
+1327 \periph Cover #needs test
+1328 \periph Spine #needs test
+1400 \ef
+1401 \ex #needs test
+1402 \esb 
+1403 \cat
+1499 Study Bible Examples
+1500 \z #needs test
+
+The fifth and sixth digits of the code can be used to enumerate different tests
+on a single USFM tag.
+
+The {tag} value following the underscore should indicate the specific USFM tag
+being tested, or may otherwise identify the feature being tested (for tests not
+pertaining directly to the USFM reference).
+
+Although our use is well within limits permitted by fair use, since many of the USFM files contain copyrighted text, non-tag alphabetic content has been converted to random filler text for the test set. The original USFM files are located within the file usfmSamples_orig.7z. The password on this file is the MD5 hash of the CrossWire news administration password. To derive the file's password, you can use a website such as http://md5-hash-online.waraxe.us/ or employ the md5sum application as follows, assuming a password of {password}: echo -n "{password}"|md5sum
+

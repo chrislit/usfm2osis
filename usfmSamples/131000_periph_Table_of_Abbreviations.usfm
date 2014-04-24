@@ -1,0 +1,21 @@
+\id FRT
+\periph Table of Abbreviations
+\mt1 Lorem ipsum dolor sit amet, consectetuer adipiscing
+\tr \th1 elit. \th2 Abbrev. \thr3 Aenean
+\tr \tc1 commodo \tc2 ligula \tcr3 #
+\tr \tc1 eget \tc2 dolor. \tcr3 #
+\tr \tc1 1 Aenean \tc2 1 massa. \tcr3 #
+\tr \tc1 2 Cum \tc2 2 sociis \tcr3 #
+\tr \tc1 natoque \tc2 penatibus \tcr3 #
+\tr \tc1 1 et \tc2 1 magnis \tcr3 #
+\tr \tc1 2 dis \tc2 2 parturient \tcr3 #
+\tr \tc1 montes, \tc2 nascetur \tcr3 #
+\tr \tc1 ridiculus \tc2 mus. \tcr3 #
+\tr \tc1 Donec \tc2 quam \tcr3 #
+\tr \tc1 felis, \tc2 ultricies \tcr3 #
+\tr \tc1 nec, \tc2 pellentesque \tcr3 #
+\s1 eu, pretium
+\tr \tc1 quis, (around) \tc2 sem. \tc3 #
+\tr \tc1 Nulla consequat \tc2 massa \tc3 #
+\tr \tc1 quis enim. \tc2 Donec \tc3 #
+\tr \tc1 pede \tc2 justo, \tc3 #
