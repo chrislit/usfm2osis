@@ -30,13 +30,12 @@ scriptVersion = '0.6'
 ### Guidelines & objectives:
 # Target CPython 2.7+ (but support CPython 3 and other interpreters if possible)
 # Require no non-default libraries
-# Don't require SWORD bindings
 # Handle all USFM characters from the USFM reference:
 #      <http://paratext.org/about/usfm>
 # Employ best-practice conformant OSIS
 # Employ modularity (functions rather than a big long script)
 # Employ the same command-line syntax as usfm2osis.pl
-# Use non-characters for milestoning
+# Use non-characters for milestoning (internally only)
 
 ### Roadmap:
 # 0.5 initial commit, including full coverage of core USFM tags
