@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function, unicode_literals
+
 date = '$Date: 2013-07-23 08:52:52 -0700 (Tue, 23 Jul 2013) $'
 rev = '$Rev: 438 $'
 
@@ -22,7 +24,6 @@ USFMversion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
 # The full text of the GNU General Public License is available at:
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
-from __future__ import print_function, unicode_literals
 import re, sys, codecs
 
 date = date.replace('$', '').strip()[6:16]
