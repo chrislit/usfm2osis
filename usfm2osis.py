@@ -1,6 +1,34 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+""""usfm2osis.py
+ Copyright 2012-2014 by Christopher C. Little
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ The full text of the GNU General Public License is available at:
+ <http://www.gnu.org/licenses/gpl-3.0.txt>.
+
+ ----------------------------
+
+ Guidelines & objectives:
+ *Target CPython 2.7+ (but support CPython 3 and other interpreters if possible)
+ *Require no non-default libraries
+ *Handle all USFM characters from the USFM reference:
+      <http://paratext.org/about/usfm>
+ *Employ best-practice conformant OSIS
+ *Employ modularity (functions rather than a big long script)
+ *Employ the same command-line syntax as usfm2osis.pl
+ *Use non-characters for milestoning (internally only)
+"""
 from __future__ import print_function, unicode_literals
 
 date = '$Date: 2014-02-22 23:59:38 -0800 (Sat, 22 Feb 2014) $'
@@ -9,32 +37,6 @@ rev = '$Rev: 480 $'
 usfmVersion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
 osisVersion = '2.1.1' # http://www.bibletechnologies.net/osisCore.2.1.1.xsd
 scriptVersion = '0.6'
-
-# usfm2osis.py
-# Copyright 2012-2014 by Christopher C. Little
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# The full text of the GNU General Public License is available at:
-# <http://www.gnu.org/licenses/gpl-3.0.txt>.
-
-### Guidelines & objectives:
-# Target CPython 2.7+ (but support CPython 3 and other interpreters if possible)
-# Require no non-default libraries
-# Handle all USFM characters from the USFM reference:
-#      <http://paratext.org/about/usfm>
-# Employ best-practice conformant OSIS
-# Employ modularity (functions rather than a big long script)
-# Employ the same command-line syntax as usfm2osis.pl
-# Use non-characters for milestoning (internally only)
 
 ### Key to non-characters:
 # Used   : \uFDD0\uFDD1\uFDD2\uFDD3\uFDD4\uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA
