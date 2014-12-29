@@ -38,8 +38,6 @@ scriptVersion = '0.6'
 # Use non-characters for milestoning (internally only)
 
 ### Roadmap:
-# 0.7 expand sub-verses with ! in osisIDs; unittest; make fully OO; PyDev
-#     project?
 # 0.8 test suite incorporating all USFM examples from UBS ICAP and other complex
 #     cases
 # 0.9 more clean-up & re-ordering to correctly encapsulate milestones within
@@ -50,13 +48,6 @@ scriptVersion = '0.6'
 # 1.x SWORD-mode output?
 # 1.x IMP output?
 # 1.x SWORD module output?, requiring SWORD bindings
-
-### TODO for 0.6:
-# expand sub-verses with ! in osisIDs
-# unittest
-# make fully OO
-# PyDev project?
-# check Python2/3 compatibility
 
 ### Key to non-characters:
 # Used   : \uFDD0\uFDD1\uFDD2\uFDD3\uFDD4\uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA
