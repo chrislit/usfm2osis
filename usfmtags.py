@@ -22,6 +22,7 @@ USFMversion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
 # The full text of the GNU General Public License is available at:
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
+from __future__ import print_function, unicode_literals
 import re, sys, codecs
 
 date = date.replace('$', '').strip()[6:16]
