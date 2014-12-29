@@ -38,8 +38,6 @@ scriptVersion = '0.6'
 # Use non-characters for milestoning (internally only)
 
 ### Roadmap:
-# 0.9 more clean-up & re-ordering to correctly encapsulate milestones within
-#     appropriate containers; clear remaining TODO items, to the extent possible
 # 1.0 feature complete for release & production use
 # 1.x xreffix.pl-functionality (osisParse(ref)), requiring SWORD bindings; use
 #     toc3 for localization
