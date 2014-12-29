@@ -37,14 +37,6 @@ scriptVersion = '0.6'
 # Employ the same command-line syntax as usfm2osis.pl
 # Use non-characters for milestoning (internally only)
 
-### Roadmap:
-# 1.0 feature complete for release & production use
-# 1.x xreffix.pl-functionality (osisParse(ref)), requiring SWORD bindings; use
-#     toc3 for localization
-# 1.x SWORD-mode output?
-# 1.x IMP output?
-# 1.x SWORD module output?, requiring SWORD bindings
-
 ### Key to non-characters:
 # Used   : \uFDD0\uFDD1\uFDD2\uFDD3\uFDD4\uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA
 #          \uFDDB\uFDDC\uFDDD\uFDDE\uFDDF\uFDE0\uFDE1\uFDE2\uFDE3\uFDE4\uFDE5
@@ -73,7 +65,6 @@ scriptVersion = '0.6'
 # \uFDE4 is3
 # \uFDE5 is4
 # \uFDE6 is5
-
 # \uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA\uFDDB\uFDDC\uFDDD\uFDDE sections
 
 import sys, codecs, re
