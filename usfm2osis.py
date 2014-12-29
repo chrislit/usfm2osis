@@ -38,9 +38,6 @@ scriptVersion = '0.6'
 # Use non-characters for milestoning (internally only)
 
 ### Roadmap:
-# 0.5 initial commit, including full coverage of core USFM tags
-# 0.6 file sorting options (natural/alphabetic/canonical/none); Python3
-#     compatability; add optional schema validator (lxml probably); docstrings 
 # 0.7 expand sub-verses with ! in osisIDs; unittest; make fully OO; PyDev
 #     project?
 # 0.8 test suite incorporating all USFM examples from UBS ICAP and other complex
