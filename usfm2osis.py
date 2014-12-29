@@ -138,7 +138,8 @@ addBookDict = {
     '4ES':'4Ezra', '5ES':'5Ezra', '6ES':'6Ezra',
 
 
-    ### Proposed Additions <http://lc.bfbs.org.uk/e107_files/downloads/canonicalissuesinparatext.pdf>
+    ### Proposed Additions:
+    # <http://lc.bfbs.org.uk/e107_files/downloads/canonicalissuesinparatext.pdf>
     # Alternate Psalms
     'PSB':'PsMet',
     # Vulgate
@@ -149,7 +150,8 @@ addBookDict = {
     # Apostolic Fathers
     '1CL':'1Clem', '2CL':'2Clem', 'SHE':'Herm', 'LBA':'Barn', 'DID':'Did',
     ###
-    # Proposed replacements <http://lc.bfbs.org.uk/e107_files/downloads/canonicalissuesinparatext.pdf>
+    # Proposed replacements:
+    # <http://lc.bfbs.org.uk/e107_files/downloads/canonicalissuesinparatext.pdf>
     'ODE':'Odes',
 
     # Additional biblical books
@@ -443,13 +445,20 @@ def convertToOsis(sFile):
         """
 
         # \id_<CODE>_(Name of file, Book name, Language, Last edited, Date etc.)
-        osis = re.sub(r'\\id\s+([A-Z0-9]{3})\b\s*([^\\'+'\n]*?)\n'+r'(.*)(?=\\id|$)', lambda m: '\uFDD0<div type="book" osisID="' + bookDict[m.group(1)] + '">\n' + (('<!-- id comment - ' + m.group(2) + ' -->\n') if m.group(2) else '') + m.group(3) + '</div type="book">\uFDD0\n' , osis, flags=re.DOTALL)
+        osis = re.sub(r'\\id\s+([A-Z0-9]{3})\b\s*([^\\'+'\n]*?)\n'+
+                      r'(.*)(?=\\id|$)',
+                      lambda m: '\uFDD0<div type="book" osisID="' +
+                      bookDict[m.group(1)] + '">\n' +
+                      (('<!-- id comment - ' + m.group(2) + ' -->\n') if
+                       m.group(2) else '') + m.group(3) +
+                      '</div type="book">\uFDD0\n' , osis, flags=re.DOTALL)
 
         # \ide_<ENCODING>
         osis = re.sub(r'\\ide\b.*'+'\n', '', osis) # delete, since this was handled above
 
         # \sts_<STATUS CODE>
-        osis = re.sub(r'\\sts\b\s+(.+)\s*'+'\n', r'<milestone type="x-usfm-sts" n="\1"/>'+'\n', osis)
+        osis = re.sub(r'\\sts\b\s+(.+)\s*'+'\n',
+                      r'<milestone type="x-usfm-sts" n="\1"/>'+'\n', osis)
 
         # \rem_text...
         osis = re.sub(r'\\rem\b\s+(.+)', r'<!-- rem - \1 -->', osis)
@@ -459,17 +468,22 @@ def convertToOsis(sFile):
             osis = re.sub(r'\\restore\b\s+(.+)', r'<!-- restore - \1 -->', osis)
 
         # \h#_text...
-        osis = re.sub(r'\\h\b\s+(.+)\s*'+'\n', r'<title type="runningHead">\1</title>'+'\n', osis)
-        osis = re.sub(r'\\h(\d)\b\s+(.+)\s*'+'\n', r'<title type="runningHead" n="\1">\2</title>'+'\n', osis)
+        osis = re.sub(r'\\h\b\s+(.+)\s*'+'\n',
+                      r'<title type="runningHead">\1</title>'+'\n', osis)
+        osis = re.sub(r'\\h(\d)\b\s+(.+)\s*'+'\n',
+                      r'<title type="runningHead" n="\1">\2</title>'+'\n', osis)
 
         # \toc1_text...
-        osis = re.sub(r'\\toc1\b\s+(.+)\s*'+'\n', r'<milestone type="x-usfm-toc1" n="\1"/>'+'\n', osis)
+        osis = re.sub(r'\\toc1\b\s+(.+)\s*'+'\n',
+                      r'<milestone type="x-usfm-toc1" n="\1"/>'+'\n', osis)
 
         # \toc2_text...
-        osis = re.sub(r'\\toc2\b\s+(.+)\s*'+'\n', r'<milestone type="x-usfm-toc2" n="\1"/>'+'\n', osis)
+        osis = re.sub(r'\\toc2\b\s+(.+)\s*'+'\n',
+                      r'<milestone type="x-usfm-toc2" n="\1"/>'+'\n', osis)
 
         # \toc3_text...
-        osis = re.sub(r'\\toc3\b\s+(.+)\s*'+'\n', r'<milestone type="x-usfm-toc3" n="\1"/>'+'\n', osis)
+        osis = re.sub(r'\\toc3\b\s+(.+)\s*'+'\n',
+                      r'<milestone type="x-usfm-toc3" n="\1"/>'+'\n', osis)
 
         return osis
 
@@ -490,10 +504,16 @@ def convertToOsis(sFile):
         """
 
         # \imt#_text...
-        osis = re.sub(r'\\imt(\d?)\s+(.+)', lambda m: '<title ' + ('level="'+m.group(1)+'" ' if m.group(1) else '') + 'type="main" subType="x-introduction">' + m.group(2) + '</title>', osis)
+        osis = re.sub(r'\\imt(\d?)\s+(.+)', lambda m: '<title ' +
+                      ('level="'+m.group(1)+'" ' if m.group(1) else '') +
+                      'type="main" subType="x-introduction">' + m.group(2) +
+                      '</title>', osis)
 
         # \imte#_text...
-        osis = re.sub(r'\\imte(\d?)\b\s+(.+)', lambda m: '<title ' + ('level="'+m.group(1)+'" ' if m.group(1) else '') + 'type="main" subType="x-introduction-end">' + m.group(2) + '</title>', osis)
+        osis = re.sub(r'\\imte(\d?)\b\s+(.+)', lambda m: '<title ' +
+                      ('level="'+m.group(1)+'" ' if m.group(1) else '') +
+                      'type="main" subType="x-introduction-end">' + m.group(2) +
+                      '</title>', osis)
 
         # \is#_text...
         osis = re.sub(r'\\is1?\s+(.+)', lambda m: '\uFDE2<div type="section" subType="x-introduction"><title>' + m.group(1) + '</title>', osis)
