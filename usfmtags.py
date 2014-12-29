@@ -83,8 +83,10 @@ def printUsage():
     print('usfmtags.py <USFM filenames|wildcard>')
     print(' Revision: ' + rev + ' (' + date + ')')
     print('')
-    print(' This utility will scan USFM files and print two lists of all unique tags in them.')
-    print(' The first list identifies all valid tags, identified in the USFM ' + USFMversion + ' spec.')
+    print(' This utility will scan USFM files and print two lists of all '+
+          'unique tags in them.')
+    print(' The first list identifies all valid tags, identified in the USFM '
+          + USFMversion + ' spec.')
     print(' The second list identifies tags unknown to that spec.')
     exit()
 
