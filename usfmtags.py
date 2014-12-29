@@ -3,7 +3,6 @@
 
 date = '$Date: 2013-07-23 08:52:52 -0700 (Tue, 23 Jul 2013) $'
 rev = '$Rev: 438 $'
-id = '$Id: usfmtags.py 438 2013-07-23 15:52:52Z chrislit $'
 
 USFMversion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
 

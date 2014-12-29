@@ -5,7 +5,6 @@ from __future__ import print_function, unicode_literals
 
 date = '$Date: 2014-02-22 23:59:38 -0800 (Sat, 22 Feb 2014) $'
 rev = '$Rev: 480 $'
-id = '$Id: usfm2osis.py 480 2014-02-23 07:59:38Z chrislit $'
 
 usfmVersion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
 osisVersion = '2.1.1' # http://www.bibletechnologies.net/osisCore.2.1.1.xsd
