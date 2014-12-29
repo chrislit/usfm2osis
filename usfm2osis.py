@@ -40,12 +40,17 @@ scriptVersion = '0.6'
 
 ### Roadmap:
 # 0.5 initial commit, including full coverage of core USFM tags
-# 0.6 file sorting options (natural/alphabetic/canonical/none); Python3 compatability; add optional schema validator (lxml probably); docstrings 
-# 0.7 expand sub-verses with ! in osisIDs; unittest; make fully OO; PyDev project?
-# 0.8 test suite incorporating all USFM examples from UBS ICAP and other complex cases
-# 0.9 more clean-up & re-ordering to correctly encapsulate milestones within appropriate containers; clear remaining TODO items, to the extent possible
+# 0.6 file sorting options (natural/alphabetic/canonical/none); Python3
+#     compatability; add optional schema validator (lxml probably); docstrings 
+# 0.7 expand sub-verses with ! in osisIDs; unittest; make fully OO; PyDev
+#     project?
+# 0.8 test suite incorporating all USFM examples from UBS ICAP and other complex
+#     cases
+# 0.9 more clean-up & re-ordering to correctly encapsulate milestones within
+#     appropriate containers; clear remaining TODO items, to the extent possible
 # 1.0 feature complete for release & production use
-# 1.x xreffix.pl-functionality (osisParse(ref)), requiring SWORD bindings; use toc3 for localization
+# 1.x xreffix.pl-functionality (osisParse(ref)), requiring SWORD bindings; use
+#     toc3 for localization
 # 1.x SWORD-mode output?
 # 1.x IMP output?
 # 1.x SWORD module output?, requiring SWORD bindings
@@ -58,7 +63,9 @@ scriptVersion = '0.6'
 # check Python2/3 compatibility
 
 ### Key to non-characters:
-# Used   : \uFDD0\uFDD1\uFDD2\uFDD3\uFDD4\uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA\uFDDB\uFDDC\uFDDD\uFDDE\uFDDF\uFDE0\uFDE1\uFDE2\uFDE3\uFDE4\uFDE5\uFDE6
+# Used   : \uFDD0\uFDD1\uFDD2\uFDD3\uFDD4\uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA
+#          \uFDDB\uFDDC\uFDDD\uFDDE\uFDDF\uFDE0\uFDE1\uFDE2\uFDE3\uFDE4\uFDE5
+#          \uFDE6
 # Unused : \uFDE7\uFDE8\uFDE9\uFDEA\uFDEB\uFDEC\uFDED\uFDEE\uFDEF
 # \uFDD0 book
 # \uFDD1 chapter
@@ -102,21 +109,28 @@ bookDict = {
     ### Known USFM Book codes from Paratext
     ### Cf. http://ubs-icap.org/chm/usfm/2.35/index.html?book_codes.htm
     # OT
-    'GEN':'Gen', 'EXO':'Exod', 'LEV':'Lev', 'NUM':'Num', 'DEU':'Deut', 'JOS':'Josh', 'JDG':'Judg', 'RUT':'Ruth',
-    '1SA':'1Sam', '2SA':'2Sam', '1KI':'1Kgs', '2KI':'2Kgs', '1CH':'1Chr', '2CH':'2Chr', 'EZR':'Ezra', 'NEH':'Neh',
-    'EST':'Esth', 'JOB':'Job', 'PSA':'Ps', 'PRO':'Prov', 'ECC':'Eccl', 'SNG':'Song', 'ISA':'Isa', 'JER':'Jer',
-    'LAM':'Lam', 'EZK':'Ezek', 'DAN':'Dan', 'HOS':'Hos', 'JOL':'Joel', 'AMO':'Amos', 'OBA':'Obad', 'JON':'Jonah',
-    'MIC':'Mic', 'NAM':'Nah', 'HAB':'Hab', 'ZEP':'Zeph', 'HAG':'Hag', 'ZEC':'Zech', 'MAL':'Mal',
+    'GEN':'Gen', 'EXO':'Exod', 'LEV':'Lev', 'NUM':'Num', 'DEU':'Deut',
+    'JOS':'Josh', 'JDG':'Judg', 'RUT':'Ruth', '1SA':'1Sam', '2SA':'2Sam',
+    '1KI':'1Kgs', '2KI':'2Kgs', '1CH':'1Chr', '2CH':'2Chr', 'EZR':'Ezra',
+    'NEH':'Neh', 'EST':'Esth', 'JOB':'Job', 'PSA':'Ps', 'PRO':'Prov',
+    'ECC':'Eccl', 'SNG':'Song', 'ISA':'Isa', 'JER':'Jer', 'LAM':'Lam',
+    'EZK':'Ezek', 'DAN':'Dan', 'HOS':'Hos', 'JOL':'Joel', 'AMO':'Amos',
+    'OBA':'Obad', 'JON':'Jonah', 'MIC':'Mic', 'NAM':'Nah', 'HAB':'Hab',
+    'ZEP':'Zeph', 'HAG':'Hag', 'ZEC':'Zech', 'MAL':'Mal',
     # NT
-    'MAT':'Matt', 'MRK':'Mark', 'LUK':'Luke', 'JHN':'John', 'ACT':'Acts', 'ROM':'Rom', '1CO':'1Cor', '2CO':'2Cor',
-    'GAL':'Gal', 'EPH':'Eph', 'PHP':'Phil', 'COL':'Col', '1TH':'1Thess', '2TH':'2Thess', '1TI':'1Tim', '2TI':'2Tim',
-    'TIT':'Titus', 'PHM':'Phlm', 'HEB':'Heb', 'JAS':'Jas', '1PE':'1Pet', '2PE':'2Pet', '1JN':'1John', '2JN':'2John',
-    '3JN':'3John', 'JUD':'Jude', 'REV':'Rev',
+    'MAT':'Matt', 'MRK':'Mark', 'LUK':'Luke', 'JHN':'John', 'ACT':'Acts',
+    'ROM':'Rom', '1CO':'1Cor', '2CO':'2Cor', 'GAL':'Gal', 'EPH':'Eph',
+    'PHP':'Phil', 'COL':'Col', '1TH':'1Thess', '2TH':'2Thess', '1TI':'1Tim',
+    '2TI':'2Tim', 'TIT':'Titus', 'PHM':'Phlm', 'HEB':'Heb', 'JAS':'Jas',
+    '1PE':'1Pet', '2PE':'2Pet', '1JN':'1John', '2JN':'2John', '3JN':'3John',
+    'JUD':'Jude', 'REV':'Rev',
     # DC - Catholic
-    'TOB':'Tob', 'JDT':'Jdt', 'ESG':'EsthGr', 'WIS':'Wis', 'SIR':'Sir', 'BAR':'Bar', 'LJE':'EpJer', 'S3Y':'PrAzar',
-    'SUS':'Sus', 'BEL':'Bel', '1MA':'1Macc', '2MA':'2Macc',
+    'TOB':'Tob', 'JDT':'Jdt', 'ESG':'EsthGr', 'WIS':'Wis', 'SIR':'Sir',
+    'BAR':'Bar', 'LJE':'EpJer', 'S3Y':'PrAzar', 'SUS':'Sus', 'BEL':'Bel',
+    '1MA':'1Macc', '2MA':'2Macc',
     # DC - Eastern Orthodox
-    '3MA':'3Macc', '4MA':'4Macc', '1ES':'1Esd', '2ES':'2Esd', 'MAN':'PrMan', 'PS2':'AddPs',
+    '3MA':'3Macc', '4MA':'4Macc', '1ES':'1Esd', '2ES':'2Esd', 'MAN':'PrMan',
+    'PS2':'AddPs',
     # Rahlfs' LXX
     'ODA':'Odes', 'PSS':'PssSol',
     # Esdrae
@@ -126,22 +140,25 @@ bookDict = {
     # Syriac
     'PS3':'5ApocSyrPss', '2BA':'2Bar', 'LBA':'EpBar',
     # Ethiopic
-    'JUB':'Jub', 'ENO':'1En', '1MQ':'1Meq', '2MQ':'2Meq', '3MQ':'3Meq', 'REP':'Reproof', '4BA':'4Bar',
+    'JUB':'Jub', 'ENO':'1En', '1MQ':'1Meq', '2MQ':'2Meq', '3MQ':'3Meq',
+    'REP':'Reproof', '4BA':'4Bar',
     # Vulgate
     'LAO':'EpLao',
 
     # Additional non-biblical books
-    'XXA':'XXA', 'XXB':'XXB', 'XXC':'XXC', 'XXD':'XXD', 'XXE':'XXE', 'XXF':'XXF', 'XXG':'XXG',
+    'XXA':'XXA', 'XXB':'XXB', 'XXC':'XXC', 'XXD':'XXD', 'XXE':'XXE',
+    'XXF':'XXF', 'XXG':'XXG',
 
     # Peripheral books
-    'FRT':'FRONT', 'INT':'INTRODUCTION', 'BAK':'BACK', 'CNC':'CONCORDANCE', 'GLO':'GLOSSARY',
-    'TDX':'INDEX', 'NDX':'GAZETTEER', 'OTH':'X-OTHER'
+    'FRT':'FRONT', 'INT':'INTRODUCTION', 'BAK':'BACK', 'CNC':'CONCORDANCE',
+    'GLO':'GLOSSARY', 'TDX':'INDEX', 'NDX':'GAZETTEER', 'OTH':'X-OTHER'
     }
 
 addBookDict = {
     ### Deprecated
     # Rahlfs
-    'JSA':'JoshA', 'JDB':'JudgB', 'TBS':'TobS', 'SST':'SusTh', 'DNT':'DanTh', 'BLT':'BelTh',
+    'JSA':'JoshA', 'JDB':'JudgB', 'TBS':'TobS', 'SST':'SusTh', 'DNT':'DanTh',
+    'BLT':'BelTh',
     # Esdrae
     '4ES':'4Ezra', '5ES':'5Ezra', '6ES':'6Ezra',
 
@@ -152,7 +169,8 @@ addBookDict = {
     # Vulgate
     'PSO':'PrSol', 'PJE':'PrJer',
     # Armenian
-    'WSI':'WSir', 'COP':'EpCorPaul', '3CO':'3Cor', 'EUT':'PrEuth', 'DOJ':'DormJohn',
+    'WSI':'WSir', 'COP':'EpCorPaul', '3CO':'3Cor', 'EUT':'PrEuth',
+    'DOJ':'DormJohn',
     # Apostolic Fathers
     '1CL':'1Clem', '2CL':'2Clem', 'SHE':'Herm', 'LBA':'Barn', 'DID':'Did',
     ###
@@ -173,33 +191,35 @@ canonicalOrder = [
     # Specific principles:
     # 1) Book representing parts of protocanonical books follow the primary book
     # 2) Variants follow primary forms
-    # 3) Books that appear in only one tradition or Bible appear following their traditional/attested antecedent
+    # 3) Books that appear in only one tradition or Bible appear following their
+    #    traditional/attested antecedent
 
-    # There's no fool-proof way to order books without knowing the tradition ahead of time,
-    # but this ordering should get it right often for many common real Bibles.
+    # There's no fool-proof way to order books without knowing the tradition
+    # ahead of time, but this ordering should get it right often for many common
+    # real Bibles.
 
     # Front Matter
     'FRONT', 'INTRODUCTION',
 
     # OT
-    'Gen', 'Exod', 'Lev', 'Num', 'Deut', 'Josh', 'JoshA', 'Judg', 'JudgB', 'Ruth',
-    '1Sam', '2Sam', '1Kgs', '2Kgs', '1Chr', '2Chr', 'PrMan', 'Jub', '1En',
-    'Ezra', 'Neh', 'Tob', 'TobS', 'Jdt', 'Esth', 'EsthGr', 'AddEsth', '1Meq', '2Meq', '3Meq',
-    'Job', 'Ps', 'AddPs', '5ApocSyrPss', 'PsMet', 'Odes', 'Prov', 'Reproof', 'Eccl', 'Song',
-    'Wis', 'Sir', 'WSir', 'PrSol', 'PssSol',
-    'Isa', 'Jer', 'Lam', 'PrJer', 'Bar', 'EpJer', '2Bar', 'EpBar', '4Bar',
-    'Ezek', 'Dan', 'DanGr', 'DanTh', 'PrAzar', 'Sus', 'SusTh', 'Bel', 'BelTh',
-    'Hos', 'Joel', 'Amos', 'Obad', 'Jonah', 'Mic', 'Nah', 'Hab', 'Zeph', 'Hag', 'Zech', 'Mal',
+    'Gen', 'Exod', 'Lev', 'Num', 'Deut', 'Josh', 'JoshA', 'Judg', 'JudgB',
+    'Ruth', '1Sam', '2Sam', '1Kgs', '2Kgs', '1Chr', '2Chr', 'PrMan', 'Jub',
+    '1En', 'Ezra', 'Neh', 'Tob', 'TobS', 'Jdt', 'Esth', 'EsthGr', 'AddEsth',
+    '1Meq', '2Meq', '3Meq', 'Job', 'Ps', 'AddPs', '5ApocSyrPss', 'PsMet',
+    'Odes', 'Prov', 'Reproof', 'Eccl', 'Song', 'Wis', 'Sir', 'WSir', 'PrSol',
+    'PssSol', 'Isa', 'Jer', 'Lam', 'PrJer', 'Bar', 'EpJer', '2Bar', 'EpBar',
+    '4Bar', 'Ezek', 'Dan', 'DanGr', 'DanTh', 'PrAzar', 'Sus', 'SusTh', 'Bel',
+    'BelTh', 'Hos', 'Joel', 'Amos', 'Obad', 'Jonah', 'Mic', 'Nah', 'Hab',
+    'Zeph', 'Hag', 'Zech', 'Mal',
 
     # Intertestamentals
-    '1Esd', '2Esd', '4Ezra', '5Ezra', '6Ezra',
-    '1Macc', '2Macc', '3Macc', '4Macc',
+    '1Esd', '2Esd', '4Ezra', '5Ezra', '6Ezra', '1Macc', '2Macc', '3Macc',
+    '4Macc',
 
     # NT
-    'Matt', 'Mark', 'Luke', 'John', 'Acts', 'Rom', '1Cor', '2Cor',
-    'Gal', 'Eph', 'Phil', 'Col', '1Thess', '2Thess', '1Tim', '2Tim',
-    'Titus', 'Phlm', 'Heb', 'Jas', '1Pet', '2Pet', '1John', '2John',
-    '3John', 'Jude', 'Rev',
+    'Matt', 'Mark', 'Luke', 'John', 'Acts', 'Rom', '1Cor', '2Cor', 'Gal', 'Eph',
+    'Phil', 'Col', '1Thess', '2Thess', '1Tim', '2Tim', 'Titus', 'Phlm', 'Heb',
+    'Jas', '1Pet', '2Pet', '1John', '2John', '3John', 'Jude', 'Rev',
     # NT-Apocrypha
     'EpLao', 'EpCorPaul', '3Cor', 'PrEuth', 'DormJohn',
     # AF
@@ -209,8 +229,7 @@ canonicalOrder = [
     'XXA', 'XXB', 'XXC', 'XXD', 'XXE', 'XXF', 'XXG',
 
     # Back Matter
-    'BACK', 'CONCORDANCE', 'GLOSSARY',
-    'INDEX', 'GAZETTEER', 'X-OTHER'
+    'BACK', 'CONCORDANCE', 'GLOSSARY', 'INDEX', 'GAZETTEER', 'X-OTHER'
     ]
 
 usfmNumericOrder = [
@@ -218,29 +237,27 @@ usfmNumericOrder = [
     'FRONT', 'INTRODUCTION',
 
     # OT 01-39
-    'Gen', 'Exod', 'Lev', 'Num', 'Deut', 'Josh', 'Judg', 'Ruth',
-    '1Sam', '2Sam', '1Kgs', '2Kgs', '1Chr', '2Chr', 'Ezra', 'Neh',
-    'Esth', 'Job', 'Ps', 'Prov', 'Eccl', 'Song', 'Isa', 'Jer',
-    'Lam', 'Ezek', 'Dan', 'Hos', 'Joel', 'Amos', 'Obad', 'Jonah',
-    'Mic', 'Nah', 'Hab', 'Zeph', 'Hag', 'Zech', 'Mal',
+    'Gen', 'Exod', 'Lev', 'Num', 'Deut', 'Josh', 'Judg', 'Ruth', '1Sam', '2Sam',
+    '1Kgs', '2Kgs', '1Chr', '2Chr', 'Ezra', 'Neh', 'Esth', 'Job', 'Ps', 'Prov',
+    'Eccl', 'Song', 'Isa', 'Jer', 'Lam', 'Ezek', 'Dan', 'Hos', 'Joel', 'Amos',
+    'Obad', 'Jonah', 'Mic', 'Nah', 'Hab', 'Zeph', 'Hag', 'Zech', 'Mal',
 
     # NT 41-67
-    'Matt', 'Mark', 'Luke', 'John', 'Acts', 'Rom', '1Cor', '2Cor',
-    'Gal', 'Eph', 'Phil', 'Col', '1Thess', '2Thess', '1Tim', '2Tim',
-    'Titus', 'Phlm', 'Heb', 'Jas', '1Pet', '2Pet', '1John', '2John',
-    '3John', 'Jude', 'Rev',
+    'Matt', 'Mark', 'Luke', 'John', 'Acts', 'Rom', '1Cor', '2Cor', 'Gal', 'Eph',
+    'Phil', 'Col', '1Thess', '2Thess', '1Tim', '2Tim', 'Titus', 'Phlm', 'Heb',
+    'Jas', '1Pet', '2Pet', '1John', '2John', '3John', 'Jude', 'Rev',
 
     # Apocrypha 68-87 (plus AddEsth, inserted after EsthGr)
-    'Tob', 'Jdt', 'EsthGr', 'AddEsth', 'Wis', 'Sir', 'Bar', 'EpJer',
-    'PrAzar', 'Sus', 'Bel', '1Macc', '2Macc', '3Macc', '4Macc',
-    '1Esd', '2Esd', 'PrMan', 'AddPs', 'Odes', 'PssSol',
+    'Tob', 'Jdt', 'EsthGr', 'AddEsth', 'Wis', 'Sir', 'Bar', 'EpJer', 'PrAzar',
+    'Sus', 'Bel', '1Macc', '2Macc', '3Macc', '4Macc', '1Esd', '2Esd', 'PrMan',
+    'AddPs', 'Odes', 'PssSol',
 
     # Esdrae A4-A6
     '4Ezra', '5Ezra', '6Ezra',
 
     # Gk. Daniel, Syriac additions, Ethiopic additions, Laodiceans B2-C2
-    'DanGr', '5ApocSyrPss', '2Bar', 'EpBar', 'Jub', '1En',
-    '1Meq', '2Meq', '3Meq', 'Reproof', '4Bar', 'EpLao',
+    'DanGr', '5ApocSyrPss', '2Bar', 'EpBar', 'Jub', '1En', '1Meq', '2Meq',
+    '3Meq', 'Reproof', '4Bar', 'EpLao',
 
     # Books not currently adopted into USFM, in order given by BFBS
     # Metrical Psalms
@@ -259,27 +276,32 @@ usfmNumericOrder = [
     'XXA', 'XXB', 'XXC', 'XXD', 'XXE', 'XXF', 'XXG',
 
     # Back Matter
-    'BACK', 'CONCORDANCE', 'GLOSSARY',
-    'INDEX', 'GAZETTEER', 'X-OTHER'
+    'BACK', 'CONCORDANCE', 'GLOSSARY', 'INDEX', 'GAZETTEER', 'X-OTHER'
     ]
 
-specialBooks = ['FRONT', 'INTRODUCTION', 'BACK', 'CONCORDANCE', 'GLOSSARY', 'INDEX', 'GAZETTEER', 'X-OTHER']
+specialBooks = ['FRONT', 'INTRODUCTION', 'BACK', 'CONCORDANCE', 'GLOSSARY',
+                'INDEX', 'GAZETTEER', 'X-OTHER']
 
 peripherals = {
-    'Title Page':'titlePage', 'Half Title Page':'x-halfTitlePage', 'Promotional Page':'x-promotionalPage',
-    'Imprimatur':'imprimatur', 'Publication Data':'publicationData', 'Foreword':'x-foreword', 'Preface':'preface',
-    'Table of Contents':'tableofContents', 'Alphabetical Contents':'x-alphabeticalContents',
-    'Table of Abbreviations':'x-tableofAbbreviations', 'Chronology':'x-chronology',
-    'Weights and Measures':'x-weightsandMeasures', 'Map Index':'x-mapIndex',
-    'NT Quotes from LXX':'x-ntQuotesfromLXX', 'Cover':'coverPage', 'Spine':'x-spine'
+    'Title Page':'titlePage', 'Half Title Page':'x-halfTitlePage',
+    'Promotional Page':'x-promotionalPage', 'Imprimatur':'imprimatur',
+    'Publication Data':'publicationData', 'Foreword':'x-foreword',
+    'Preface':'preface', 'Table of Contents':'tableofContents',
+    'Alphabetical Contents':'x-alphabeticalContents',
+    'Table of Abbreviations':'x-tableofAbbreviations',
+    'Chronology':'x-chronology', 'Weights and Measures':'x-weightsandMeasures',
+    'Map Index':'x-mapIndex', 'NT Quotes from LXX':'x-ntQuotesfromLXX',
+    'Cover':'coverPage', 'Spine':'x-spine'
     }
 
 introPeripherals = {
     'Bible Introduction':'bible', 'Old Testament Introduction':'oldTestament',
-    'Pentateuch Introduction':'pentateuch', 'History Introduction':'history', 'Poetry Introduction':'poetry',
-    'Prophecy Introduction':'prophecy', 'New Testament Introduction':'newTestament',
-    'Gospels Introduction':'gospels', 'Acts Introduction':'acts', 'Epistles Introduction':'epistles',
-    'Letters Introduction':'letters', 'Deuterocanon Introduction':'deuterocanon'
+    'Pentateuch Introduction':'pentateuch', 'History Introduction':'history',
+    'Poetry Introduction':'poetry', 'Prophecy Introduction':'prophecy',
+    'New Testament Introduction':'newTestament',
+    'Gospels Introduction':'gospels', 'Acts Introduction':'acts',
+    'Epistles Introduction':'epistles', 'Letters Introduction':'letters',
+    'Deuterocanon Introduction':'deuterocanon'
     }
 
 osis2locBk = dict()
@@ -291,15 +313,15 @@ ucs4 = (sys.maxunicode > 0xFFFF)
 # BEGIN PSF-licensed segment
 # keynat from http://code.activestate.com/recipes/285264-natural-string-sorting/
 def keynat(string):
-    r'''A natural sort helper function for sort() and sorted()
-    without using regular expressions or exceptions.
+    """A natural sort helper function for sort() and sorted() without using
+    regular expressions or exceptions.
 
     >>> items = ('Z', 'a', '10th', '1st', '9')
     >>> sorted(items)
     ['10th', '1st', '9', 'Z', 'a']
     >>> sorted(items, key=keynat)
     ['1st', '9', '10th', 'a', 'Z']
-    '''
+    """
     it = type(1)
     r = []
     for c in string:
@@ -315,21 +337,33 @@ def keynat(string):
 # END PSF-licened segment
 
 def keycanon(filename):
-    """Sort helper function that orders according to canon position (defined in canonicalOrder list), returning canonical position or infinity if not in the list."""
+    """Sort helper function that orders according to canon position (defined in
+    canonicalOrder list), returning canonical position or infinity if not in the
+    list.
+
+    """
     if filename in filename2osis:
         return canonicalOrder.index(filename2osis[filename])
     return float('inf')
 
 def keyusfm(filename):
-    """Sort helper function that orders according to USFM book number (defined in usfmNumericOrder list), returning USFM book number or infinity if not in the list."""
+    """Sort helper function that orders according to USFM book number (defined
+    in usfmNumericOrder list), returning USFM book number or infinity if not in
+    the list.
+
+    """
     if filename in filename2osis:
         return usfmNumericOrder.index(filename2osis[filename])
     return float('inf')
 
 def keysupplied(filename):
-    """Sort helper function that keeps the items in the order in which they were supplied (i.e. it doesn't sort at all), returning the number of times the function has been called."""
+    """Sort helper function that keeps the items in the order in which they were
+    supplied (i.e. it doesn't sort at all), returning the number of times the
+    function has been called.
+
+    """
     if not hasattr(keysupplied, "counter"):
-       keysupplied.counter = 0
+        keysupplied.counter = 0
     keysupplied.counter += 1
     return keysupplied.counter
 
@@ -346,12 +380,14 @@ def convertToOsis(sFile):
     verbosePrint(('Processing: ' + sFile))
 
     def cvtPreprocess(osis, relaxedConformance):
-        """Perform preprocessing on a USFM document, returning the processed text as a string.
+        """Perform preprocessing on a USFM document, returning the processed
+        text as a string.
         Removes excess spaces & CRs and escapes XML entities.
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -372,12 +408,14 @@ def convertToOsis(sFile):
 
 
     def cvtRelaxedConformanceRemaps(osis, relaxedConformance):
-        """Perform preprocessing on a USFM document, returning the processed text as a string.
+        """Perform preprocessing on a USFM document, returning the processed
+        text as a string.
         Remaps certain deprecated USFM tags to recommended alternatives.
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -401,7 +439,8 @@ def convertToOsis(sFile):
         # \spine
         osis = re.sub(r'\\spine\b\s', '\\periph Spine\n', osis)
         # \pubinfo
-        osis = re.sub(r'\\pubinfo\b\s', '\\periph Publication Information\n', osis)
+        osis = re.sub(r'\\pubinfo\b\s', '\\periph Publication Information\n',
+                      osis)
 
         # \intro
         osis = re.sub(r'\\intro\b\s', '\\id INT\n', osis)
@@ -416,13 +455,15 @@ def convertToOsis(sFile):
 
 
     def cvtIdentification(osis, relaxedConformance):
-        """Converts USFM **Identification** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Identification** tags to OSIS, returning the
+        processed text as a string.
 
         Supported tags: \id, \ide, \sts, \rem, \h, \toc1, \toc2, \toc3
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -459,13 +500,17 @@ def convertToOsis(sFile):
 
 
     def cvtIntroductions(osis, relaxedConformance):
-        """Converts USFM **Introduction** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Introduction** tags to OSIS, returning the processed
+        text as a string.
 
-        Supported tags: \imt#, \is#, \ip, \ipi, \im, \imi, \ipq, \imq, \ipr, \iq#, \ib, \ili#, \iot, \io#, \ior...\ior*, \iex, \iqt...\iqt*, \imte, \ie
+        Supported tags: \imt#, \is#, \ip, \ipi, \im, \imi, \ipq, \imq, \ipr,
+                        \iq#, \ib, \ili#, \iot, \io#, \ior...\ior*, \iex,
+                        \iqt...\iqt*, \imte, \ie
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -540,13 +585,16 @@ def convertToOsis(sFile):
 
 
     def cvtTitles(osis, relaxedConformance):
-        """Converts USFM **Title, Heading, and Label** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Title, Heading, and Label** tags to OSIS, returning
+        the processed text as a string.
 
-        Supported tags: \mt#, \mte#, \ms#, \mr, \s#, \sr, \r, \rq...\rq*, \d, \sp 
+        Supported tags: \mt#, \mte#, \ms#, \mr, \s#, \sr, \r, \rq...\rq*, \d,
+                        \sp 
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -602,13 +650,16 @@ def convertToOsis(sFile):
 
 
     def cvtChaptersAndVerses(osis, relaxedConformance):
-        """Converts USFM **Chapter and Verse** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Chapter and Verse** tags to OSIS, returning the
+        processed text as a string.
 
-        Supported tags: \c, \ca...\ca*, \cl, \cp, \cd, \v, \va...\va*, \vp...\vp*
+        Supported tags: \c, \ca...\ca*, \cl, \cp, \cd, \v, \va...\va*,
+        \vp...\vp*
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -618,10 +669,13 @@ def convertToOsis(sFile):
         # \cp_#
         # \ca_#\ca*
         def replaceChapterNumber(matchObject):
-            """Regex helper function to replace chapter numbers from \c_# with values that appeared in \cp_# and \ca_#\ca*, returing the chapter text as a string.
+            """Regex helper function to replace chapter numbers from \c_# with
+            values that appeared in \cp_# and \ca_#\ca*, returing the chapter
+            text as a string.
 
             Keyword arguments:
-            matchObject -- a regex match object in which the first element is the chapter text
+            matchObject -- a regex match object in which the first element is
+            the chapter text
 
             """
             ctext = matchObject.group(1)
@@ -650,10 +704,13 @@ def convertToOsis(sFile):
         # \vp_#\vp*
         # \va_#\va*
         def replaceVerseNumber(matchObject):
-            """Regex helper function to replace verse numbers from \v_# with values that appeared in \vp_#\vp* and \va_#\va*, returing the verse text as a string.
+            """Regex helper function to replace verse numbers from \v_# with
+            values that appeared in \vp_#\vp* and \va_#\va*, returing the verse
+            text as a string.
 
             Keyword arguments:
-            matchObject -- a regex match object in which the first element is the verse text
+            matchObject -- a regex match object in which the first element is
+            the verse text
 
             """
             vtext = matchObject.group(1)
@@ -674,13 +731,16 @@ def convertToOsis(sFile):
 
 
     def cvtParagraphs(osis, relaxedConformance):
-        """Converts USFM **Paragraph** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Paragraph** tags to OSIS, returning the processed
+        text as a string.
 
-        Supported tags: \p, \m, \pmo, \pm, \pmc, \pmr, \pi#, \mi, \nb, \cls, \li#, \pc, \pr, \ph#, \b
+        Supported tags: \p, \m, \pmo, \pm, \pmc, \pmr, \pi#, \mi, \nb, \cls,
+                        \li#, \pc, \pr, \ph#, \b
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
         paragraphregex = 'pc|pr|m|pmo|pm|pmc|pmr|pi|pi1|pi2|pi3|pi4|pi5|mi|nb'
@@ -726,13 +786,15 @@ def convertToOsis(sFile):
 
 
     def cvtPoetry(osis, relaxedConformance):
-        """Converts USFM **Poetry** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Poetry** tags to OSIS, returning the processed text
+        as a string.
 
         Supported tags: \q#, \qr, \qc, \qs...\qs*, \qa, \qac...\qac*, \qm#, \b
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -765,13 +827,15 @@ def convertToOsis(sFile):
 
 
     def cvtTables(osis, relaxedConformance):
-        """Converts USFM **Table** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Table** tags to OSIS, returning the processed text as
+        a string.
 
         Supported tags: \tr, \th#, \thr#, \tc#, \tcr#
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -791,7 +855,8 @@ def convertToOsis(sFile):
 
 
     def processNote(note):
-        """Convert note-internal USFM tags to OSIS, returning the note as a string.
+        """Convert note-internal USFM tags to OSIS, returning the note as a
+        string.
 
         Keyword arguments:
         note -- The note as a string.
@@ -836,13 +901,16 @@ def convertToOsis(sFile):
 
 
     def cvtFootnotes(osis, relaxedConformance):
-        """Converts USFM **Footnote** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Footnote** tags to OSIS, returning the processed text
+        as a string.
 
-        Supported tags: \f...\f*, \fe...\fe*, \fr, \fk, \fq, \fqa, \fl, \fp, \fv, \ft, \fdc...\fdc*, \fm...\fm*
+        Supported tags: \f...\f*, \fe...\fe*, \fr, \fk, \fq, \fqa, \fl, \fp,
+                        \fv, \ft, \fdc...\fdc*, \fm...\fm*
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -861,7 +929,8 @@ def convertToOsis(sFile):
 
 
     def processXref(note):
-        """Convert cross-reference note-internal USFM tags to OSIS, returning the cross-reference note as a string.
+        """Convert cross-reference note-internal USFM tags to OSIS, returning
+        the cross-reference note as a string.
 
         Keyword arguments:
         note -- The cross-reference note as a string.
@@ -906,13 +975,16 @@ def convertToOsis(sFile):
 
 
     def cvtCrossReferences(osis, relaxedConformance):
-        """Converts USFM **Cross Reference** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Cross Reference** tags to OSIS, returning the
+        processed text as a string.
 
-        Supported tags: \\x...\\x*, \\xo, \\xk, \\xq, \\xt, \\xot...\\xot*, \\xnt...\\xnt*, \\xdc...\\xdc*
+        Supported tags: \\x...\\x*, \\xo, \\xk, \\xq, \\xt, \\xot...\\xot*,
+                        \\xnt...\\xnt*, \\xdc...\\xdc*
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -926,13 +998,17 @@ def convertToOsis(sFile):
 
     ### Special Text and Character Styles
     def cvtSpecialText(osis, relaxedConformance):
-        """Converts USFM **Special Text** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Special Text** tags to OSIS, returning the processed
+        text as a string.
 
-        Supported tags: \add...\add*, \bk...\bk*, \dc...\dc*, \k...\k*, \lit, \nd...\nd*, \ord...\ord*, \pn...\pn*, \qt...\qt*, \sig...\sig*, \sls...\sls*, \tl...\tl*, \wj...\wj*
+        Supported tags: \add...\add*, \bk...\bk*, \dc...\dc*, \k...\k*, \lit,
+                        \nd...\nd*, \ord...\ord*, \pn...\pn*, \qt...\qt*,
+                        \sig...\sig*, \sls...\sls*, \tl...\tl*, \wj...\wj*
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -989,13 +1065,16 @@ def convertToOsis(sFile):
 
 
     def cvtCharacterStyling(osis, relaxedConformance):
-        """Converts USFM **Character Styling** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Character Styling** tags to OSIS, returning the
+        processed text as a string.
 
-        Supported tags: \em...\em*, \bd...\bd*, \it...\it*, \bdit...\bdit*, \no...\no*, \sc...\sc*
+        Supported tags: \em...\em*, \bd...\bd*, \it...\it*, \bdit...\bdit*,
+                        \no...\no*, \sc...\sc*
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -1021,13 +1100,15 @@ def convertToOsis(sFile):
 
 
     def cvtSpacingAndBreaks(osis, relaxedConformance):
-        """Converts USFM **Spacing and Breaks** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Spacing and Breaks** tags to OSIS, returning the
+        processed text as a string.
 
         Supported tags: ~, //, \pb
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -1044,22 +1125,27 @@ def convertToOsis(sFile):
 
 
     def cvtSpecialFeatures(osis, relaxedConformance):
-        """Converts USFM **Special Feature** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Special Feature** tags to OSIS, returning the
+        processed text as a string.
 
-        Supported tags: \fig...\fig*, \ndx...\ndx*, \pro...\pro*, \w...\w*, \wg...\wg*, \wh...\wh*
+        Supported tags: \fig...\fig*, \ndx...\ndx*, \pro...\pro*, \w...\w*,
+                        \wg...\wg*, \wh...\wh*
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
         # \fig DESC|FILE|SIZE|LOC|COPY|CAP|REF\fig*
         def makeFigure(matchObject):
-            """Regex helper function to convert USFM \fig to OSIS <figure/>, returning the OSIS element as a string.
+            """Regex helper function to convert USFM \fig to OSIS <figure/>,
+            returning the OSIS element as a string.
 
             Keyword arguments:
-            matchObject -- a regex match object containing the elements of a USFM \fig tag
+            matchObject -- a regex match object containing the elements of a
+            USFM \fig tag
 
             """
             fig_desc,fig_file,fig_size,fig_loc,fig_copy,fig_cap,fig_ref = matchObject.groups()
@@ -1109,22 +1195,26 @@ def convertToOsis(sFile):
 
 
     def cvtPeripherals(osis, relaxedConformance):
-        """Converts USFM **Peripheral** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Peripheral** tags to OSIS, returning the processed
+        text as a string.
 
         Supported tag: \periph
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
         # \periph
         def tagPeriph(matchObject):
-            """Regex helper function to tag peripherals, returning a <div>-encapsulated string.
+            """Regex helper function to tag peripherals, returning a
+            <div>-encapsulated string.
 
             Keyword arguments:
-            matchObject -- a regex match object containing the peripheral type and contents
+            matchObject -- a regex match object containing the peripheral type
+            and contents
 
             """
             periphType,contents = matchObject.groups()[0:2]
@@ -1144,13 +1234,15 @@ def convertToOsis(sFile):
 
 
     def cvtStudyBibleContent(osis, relaxedConformance):
-        """Converts USFM **Study Bible Content** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **Study Bible Content** tags to OSIS, returning the
+        processed text as a string.
 
         Supported tags: \ef...\ef*, \ex...\ex*, \esb...\esbe, \cat
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -1172,13 +1264,15 @@ def convertToOsis(sFile):
 
 
     def cvtPrivateUseExtensions(osis, relaxedConformance):
-        """Converts USFM **\z namespace** tags to OSIS, returning the processed text as a string.
+        """Converts USFM **\z namespace** tags to OSIS, returning the processed
+        text as a string.
 
         Supported tags: \z<Extension>
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -1202,8 +1296,10 @@ def convertToOsis(sFile):
 
 
     def processOsisIDs(osis):
-        """Perform postprocessing on an OSIS document, returning the processed text as a string.
-        Recurses through chapter & verses, substituting acutal book IDs & chapter numbers for placeholders.
+        """Perform postprocessing on an OSIS document, returning the processed
+        text as a string.
+        Recurses through chapter & verses, substituting acutal book IDs &
+        chapter numbers for placeholders.
 
         Keyword arguments:
         osis -- The document as a string.
@@ -1216,7 +1312,8 @@ def convertToOsis(sFile):
             """Expands a verse range into its constituent verses as a string.
 
             Keyword arguments:
-            vRange -- A string of the lower & upper bounds of the range, with a hypen in between.
+            vRange -- A string of the lower & upper bounds of the range, with a
+            hypen in between.
             
             """
             vRange = re.findall(r'\d+', vRange)
@@ -1227,7 +1324,8 @@ def convertToOsis(sFile):
         osis = re.sub(r'\$BOOK\$\.\$CHAP\$\.(\d+-\d+)"', lambda m: expandRange(m.group(1))+'"', osis)
 
         def expandSeries(vSeries):
-            """Expands a verse series (list) into its constituent verses as a string.
+            """Expands a verse series (list) into its constituent verses as a
+            string.
 
             Keyword arguments:
             vSeries -- A comma-separated list of verses.
@@ -1263,12 +1361,15 @@ def convertToOsis(sFile):
 
 
     def osisReorderAndCleanup(osis):
-        """Perform postprocessing on an OSIS document, returning the processed text as a string.
-        Reorders elements, strips non-characters, and cleans up excess spaces & newlines
+        """Perform postprocessing on an OSIS document, returning the processed
+        text as a string.
+        Reorders elements, strips non-characters, and cleans up excess spaces
+        & newlines
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process non-standard & deprecated USFM tags.
+        relaxedConformance -- Boolean value indicating whether to process
+        non-standard & deprecated USFM tags.
 
         """
 
@@ -1355,7 +1456,8 @@ def convertToOsis(sFile):
     return osis
 
 def readIdentifiersFromOsis(filename):
-    """Reads the USFM file and stores information about which Bible book it represents and localized abbrevations in global variables.
+    """Reads the USFM file and stores information about which Bible book it
+    represents and localized abbrevations in global variables.
 
     Keyword arguments:
     filename -- a USFM filename
