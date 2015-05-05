@@ -1,0 +1,20 @@
+language: python
+python:
+  - 2.7
+  - 3.3
+
+notifications:
+  email: false
+ 
+# Install packages
+install:
+  - travis_retry pip install coveralls
+  - travis_retry python setup.py install
+ 
+# Run test
+script:
+  - nosetests --verbose --with-coverage --cover-branches --cover-package=abydos --logging-level=INFO
+ 
+# Calculate coverage
+after_success:
+  - coveralls --verbose --rcfile=.coveragerc
