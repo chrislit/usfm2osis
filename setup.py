@@ -39,5 +39,6 @@ setup(
         'Topic :: Religion',
         'Topic :: Text Processing :: Markup :: XML'
     ],
-    long_description = '\n\n'.join([readfile(f) for f in ('README.rst',)])
+    long_description = '\n\n'.join([readfile(f) for f in ('README.rst',)]),
+    scripts=['scripts/usfm2osis.py', 'scripts/usfmtags.py']
 )
