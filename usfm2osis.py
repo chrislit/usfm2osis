@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """"usfm2osis.py
- Copyright 2012-2014 by Christopher C. Little
+ Copyright 2012-2015 by Christopher C. Little
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
  ----------------------------
 
  Guidelines & objectives:
- *Target CPython 2.7+ (but support CPython 3 and other interpreters if possible)
+ *Target CPython 2.6+ and 3.2+, plus PyPy
  *Require no non-default libraries
  *Handle all USFM characters from the USFM reference:
       <http://paratext.org/about/usfm>
