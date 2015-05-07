@@ -15,6 +15,8 @@ usfm2osis
 
 Python scripts for converting USFM to OSIS XML
 
+::
+
     Usage: usfm2osis.py <osisWork> [OPTION] ...  <USFM filename|wildcard> ...')
       -d               debug mode (single-threaded, verbose output)
       -e ENCODING      input encoding override (default is to read the USFM file's
