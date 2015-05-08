@@ -9,11 +9,15 @@ usfm2osis
     :target: https://coveralls.io/r/chrislit/usfm2osis
     :alt: Coverage Status
 
+.. image:: https://img.shields.io/pypi/v/usfm2osis.svg
+    :target: https://pypi.python.org/pypi/usfm2osis
+    :alt: PyPI
+
 .. image:: https://readthedocs.org/projects/usfm2osis/badge/?version=latest
     :target: https://usfm2osis.readthedocs.org/en/latest/
     :alt: Documentation Status
 
-Python scripts for converting USFM to OSIS XML
+Tools for converting Bibles from USFM to OSIS XML
 
 ::
 
