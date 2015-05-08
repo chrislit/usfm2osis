@@ -30,12 +30,12 @@
 """
 from __future__ import print_function, unicode_literals, absolute_import
 
-date = '$Date: 2014-02-22 23:59:38 -0800 (Sat, 22 Feb 2014) $'
-rev = '$Rev: 480 $'
+#date = '$Date: 2014-02-22 23:59:38 -0800 (Sat, 22 Feb 2014) $'
+#rev = '$Rev: 480 $'
 
 usfmVersion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
 osisVersion = '2.1.1' # http://www.bibletechnologies.net/osisCore.2.1.1.xsd
-scriptVersion = '0.6'
+scriptVersion = '0.6.1'
 
 ### Key to non-characters:
 # Used   : \uFDD0\uFDD1\uFDD2\uFDD3\uFDD4\uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA
@@ -89,8 +89,8 @@ else: # pragma: no cover
     import Queue
 
 
-date = date.replace('$', '').strip()[6:16]
-rev = rev.replace('$', '').strip()[5:]
+#date = date.replace('$', '').strip()[6:16]
+#rev = rev.replace('$', '').strip()[5:]
 
 osis2locBk = dict()
 loc2osisBk = dict()
@@ -149,7 +149,7 @@ def readIdentifiersFromOsis(filename):
 def printUsage():
     """Prints usage statement."""
     print(('usfm2osis.py -- USFM ' + usfmVersion + ' to OSIS ' + osisVersion + ' converter version ' + scriptVersion))
-    print(('                Revision: ' + rev + ' (' + date + ')'))
+    #    print(('                Revision: ' + rev + ' (' + date + ')'))
     print('')
     print('Usage: usfm2osis.py <osisWork> [OPTION] ...  <USFM filename|wildcard> ...')
     print('')
