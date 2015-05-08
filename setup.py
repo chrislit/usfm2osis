@@ -13,13 +13,13 @@ def readfile(fn):
 setup(
     name = 'usfm2osis',
     packages = find_packages(exclude=['tests*']),
-    version = '0.6.0',
+    version = '0.6.1',
     description = 'Tools for converting Bibles from USFM to OSIS XML',
     author = 'Christopher C. Little',
     author_email = 'chrisclittle+usfm2osis@gmail.com',
     url = 'https://github.com/chrislit/usfm2osis',
     download_url = 'https://github.com/chrislit/usfm2osis/archive/master.zip',
-    keywords = ['osis', 'usfm', 'Bible'],
+    keywords = ['OSIS', 'USFM', 'Bible'],
     license='GPLv3+',
     classifiers = [
         'Programming Language :: Python',
