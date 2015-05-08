@@ -17,7 +17,7 @@ usfm2osis
     :target: https://usfm2osis.readthedocs.org/en/latest/
     :alt: Documentation Status
 
-Python scripts for converting Bibles from USFM to OSIS XML
+Tools for converting Bibles from USFM to OSIS XML
 
 ::
 
