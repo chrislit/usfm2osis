@@ -1,5 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+""""usfmtags.py
+
+Copyright 2012-2015 by Christopher C. Little
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+The full text of the GNU General Public License is available at:
+<http://www.gnu.org/licenses/gpl-3.0.txt>.
+"""
 
 from __future__ import print_function, unicode_literals
 
@@ -7,22 +24,6 @@ date = '$Date: 2013-07-23 08:52:52 -0700 (Tue, 23 Jul 2013) $'
 rev = '$Rev: 438 $'
 
 USFMversion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
-
-# usfmtags.py version 1.0
-# Copyright 2012-2014 by Christopher C. Little
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# The full text of the GNU General Public License is available at:
-# <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 import re, sys, codecs
 
