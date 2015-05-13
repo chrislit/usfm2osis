@@ -19,7 +19,9 @@ The full text of the GNU General Public License is available at:
 
 from __future__ import print_function, unicode_literals
 
+
 def verbosePrint(text, verbose=True):
-    """Wraper for print() that only prints if verbose is True."""
+    """Wraper for print() that only prints if verbose is True.
+    """
     if verbose:
         print(text)
