@@ -20,81 +20,81 @@ The full text of the GNU General Public License is available at:
 from __future__ import unicode_literals
 
 bookDict = {
-    ### Known USFM Book codes from Paratext
-    ### Cf. http://ubs-icap.org/chm/usfm/2.35/index.html?book_codes.htm
+    # -- Known USFM Book codes from Paratext
+    # -- Cf. http://ubs-icap.org/chm/usfm/2.35/index.html?book_codes.htm
     # OT
-    'GEN':'Gen', 'EXO':'Exod', 'LEV':'Lev', 'NUM':'Num', 'DEU':'Deut',
-    'JOS':'Josh', 'JDG':'Judg', 'RUT':'Ruth', '1SA':'1Sam', '2SA':'2Sam',
-    '1KI':'1Kgs', '2KI':'2Kgs', '1CH':'1Chr', '2CH':'2Chr', 'EZR':'Ezra',
-    'NEH':'Neh', 'EST':'Esth', 'JOB':'Job', 'PSA':'Ps', 'PRO':'Prov',
-    'ECC':'Eccl', 'SNG':'Song', 'ISA':'Isa', 'JER':'Jer', 'LAM':'Lam',
-    'EZK':'Ezek', 'DAN':'Dan', 'HOS':'Hos', 'JOL':'Joel', 'AMO':'Amos',
-    'OBA':'Obad', 'JON':'Jonah', 'MIC':'Mic', 'NAM':'Nah', 'HAB':'Hab',
-    'ZEP':'Zeph', 'HAG':'Hag', 'ZEC':'Zech', 'MAL':'Mal',
+    'GEN': 'Gen', 'EXO': 'Exod', 'LEV': 'Lev', 'NUM': 'Num', 'DEU': 'Deut',
+    'JOS': 'Josh', 'JDG': 'Judg', 'RUT': 'Ruth', '1SA': '1Sam', '2SA': '2Sam',
+    '1KI': '1Kgs', '2KI': '2Kgs', '1CH': '1Chr', '2CH': '2Chr', 'EZR': 'Ezra',
+    'NEH': 'Neh', 'EST': 'Esth', 'JOB': 'Job', 'PSA': 'Ps', 'PRO': 'Prov',
+    'ECC': 'Eccl', 'SNG': 'Song', 'ISA': 'Isa', 'JER': 'Jer', 'LAM': 'Lam',
+    'EZK': 'Ezek', 'DAN': 'Dan', 'HOS': 'Hos', 'JOL': 'Joel', 'AMO': 'Amos',
+    'OBA': 'Obad', 'JON': 'Jonah', 'MIC': 'Mic', 'NAM': 'Nah', 'HAB': 'Hab',
+    'ZEP': 'Zeph', 'HAG': 'Hag', 'ZEC': 'Zech', 'MAL': 'Mal',
     # NT
-    'MAT':'Matt', 'MRK':'Mark', 'LUK':'Luke', 'JHN':'John', 'ACT':'Acts',
-    'ROM':'Rom', '1CO':'1Cor', '2CO':'2Cor', 'GAL':'Gal', 'EPH':'Eph',
-    'PHP':'Phil', 'COL':'Col', '1TH':'1Thess', '2TH':'2Thess', '1TI':'1Tim',
-    '2TI':'2Tim', 'TIT':'Titus', 'PHM':'Phlm', 'HEB':'Heb', 'JAS':'Jas',
-    '1PE':'1Pet', '2PE':'2Pet', '1JN':'1John', '2JN':'2John', '3JN':'3John',
-    'JUD':'Jude', 'REV':'Rev',
+    'MAT': 'Matt', 'MRK': 'Mark', 'LUK': 'Luke', 'JHN': 'John', 'ACT': 'Acts',
+    'ROM': 'Rom', '1CO': '1Cor', '2CO': '2Cor', 'GAL': 'Gal', 'EPH': 'Eph',
+    'PHP': 'Phil', 'COL': 'Col', '1TH': '1Thess', '2TH': '2Thess', '1TI': '1Tim',
+    '2TI': '2Tim', 'TIT': 'Titus', 'PHM': 'Phlm', 'HEB': 'Heb', 'JAS': 'Jas',
+    '1PE': '1Pet', '2PE': '2Pet', '1JN': '1John', '2JN': '2John', '3JN': '3John',
+    'JUD': 'Jude', 'REV': 'Rev',
     # DC - Catholic
-    'TOB':'Tob', 'JDT':'Jdt', 'ESG':'EsthGr', 'WIS':'Wis', 'SIR':'Sir',
-    'BAR':'Bar', 'LJE':'EpJer', 'S3Y':'PrAzar', 'SUS':'Sus', 'BEL':'Bel',
-    '1MA':'1Macc', '2MA':'2Macc',
+    'TOB': 'Tob', 'JDT': 'Jdt', 'ESG': 'EsthGr', 'WIS': 'Wis', 'SIR': 'Sir',
+    'BAR': 'Bar', 'LJE': 'EpJer', 'S3Y': 'PrAzar', 'SUS': 'Sus', 'BEL': 'Bel',
+    '1MA': '1Macc', '2MA': '2Macc',
     # DC - Eastern Orthodox
-    '3MA':'3Macc', '4MA':'4Macc', '1ES':'1Esd', '2ES':'2Esd', 'MAN':'PrMan',
-    'PS2':'AddPs',
+    '3MA': '3Macc', '4MA': '4Macc', '1ES': '1Esd', '2ES': '2Esd', 'MAN': 'PrMan',
+    'PS2': 'AddPs',
     # Rahlfs' LXX
-    'ODA':'Odes', 'PSS':'PssSol',
+    'ODA': 'Odes', 'PSS': 'PssSol',
     # Esdrae
-    'EZA':'4Ezra', '5EZ':'5Ezra', '6EZ':'6Ezra',
+    'EZA': '4Ezra', '5EZ': '5Ezra', '6EZ': '6Ezra',
     # Inconsistency with Esther
-    'DAG':'DanGr',
+    'DAG': 'DanGr',
     # Syriac
-    'PS3':'5ApocSyrPss', '2BA':'2Bar', 'LBA':'EpBar',
+    'PS3': '5ApocSyrPss', '2BA': '2Bar', 'LBA': 'EpBar',
     # Ethiopic
-    'JUB':'Jub', 'ENO':'1En', '1MQ':'1Meq', '2MQ':'2Meq', '3MQ':'3Meq',
-    'REP':'Reproof', '4BA':'4Bar',
+    'JUB': 'Jub', 'ENO': '1En', '1MQ': '1Meq', '2MQ': '2Meq', '3MQ': '3Meq',
+    'REP': 'Reproof', '4BA': '4Bar',
     # Vulgate
-    'LAO':'EpLao',
+    'LAO': 'EpLao',
 
     # Additional non-biblical books
-    'XXA':'XXA', 'XXB':'XXB', 'XXC':'XXC', 'XXD':'XXD', 'XXE':'XXE',
-    'XXF':'XXF', 'XXG':'XXG',
+    'XXA': 'XXA', 'XXB': 'XXB', 'XXC': 'XXC', 'XXD': 'XXD', 'XXE': 'XXE',
+    'XXF': 'XXF', 'XXG': 'XXG',
 
     # Peripheral books
-    'FRT':'FRONT', 'INT':'INTRODUCTION', 'BAK':'BACK', 'CNC':'CONCORDANCE',
-    'GLO':'GLOSSARY', 'TDX':'INDEX', 'NDX':'GAZETTEER', 'OTH':'X-OTHER'
+    'FRT': 'FRONT', 'INT': 'INTRODUCTION', 'BAK': 'BACK', 'CNC': 'CONCORDANCE',
+    'GLO': 'GLOSSARY', 'TDX': 'INDEX', 'NDX': 'GAZETTEER', 'OTH': 'X-OTHER'
     }
 
 addBookDict = {
-    ### Deprecated
+    # -- Deprecated
     # Rahlfs
-    'JSA':'JoshA', 'JDB':'JudgB', 'TBS':'TobS', 'SST':'SusTh', 'DNT':'DanTh',
-    'BLT':'BelTh',
+    'JSA': 'JoshA', 'JDB': 'JudgB', 'TBS': 'TobS', 'SST': 'SusTh', 'DNT': 'DanTh',
+    'BLT': 'BelTh',
     # Esdrae
-    '4ES':'4Ezra', '5ES':'5Ezra', '6ES':'6Ezra',
+    '4ES': '4Ezra', '5ES': '5Ezra', '6ES': '6Ezra',
 
 
-    ### Proposed Additions:
+    # -- Proposed Additions:
     # <http://lc.bfbs.org.uk/e107_files/downloads/canonicalissuesinparatext.pdf>
     # Alternate Psalms
-    'PSB':'PsMet',
+    'PSB': 'PsMet',
     # Vulgate
-    'PSO':'PrSol', 'PJE':'PrJer',
+    'PSO': 'PrSol', 'PJE': 'PrJer',
     # Armenian
-    'WSI':'WSir', 'COP':'EpCorPaul', '3CO':'3Cor', 'EUT':'PrEuth',
-    'DOJ':'DormJohn',
+    'WSI': 'WSir', 'COP': 'EpCorPaul', '3CO': '3Cor', 'EUT': 'PrEuth',
+    'DOJ': 'DormJohn',
     # Apostolic Fathers
-    '1CL':'1Clem', '2CL':'2Clem', 'SHE':'Herm', 'LBA':'Barn', 'DID':'Did',
+    '1CL': '1Clem', '2CL': '2Clem', 'SHE': 'Herm', 'LBA': 'Barn', 'DID': 'Did',
     ###
     # Proposed replacements:
     # <http://lc.bfbs.org.uk/e107_files/downloads/canonicalissuesinparatext.pdf>
-    'ODE':'Odes',
+    'ODE': 'Odes',
 
     # Additional biblical books
-    'ADE':'AddEsth'
+    'ADE': 'AddEsth'
     }
 
 
@@ -199,25 +199,25 @@ specialBooks = ['FRONT', 'INTRODUCTION', 'BACK', 'CONCORDANCE', 'GLOSSARY',
                 'INDEX', 'GAZETTEER', 'X-OTHER']
 
 peripherals = {
-    'Title Page':'titlePage', 'Half Title Page':'x-halfTitlePage',
-    'Promotional Page':'x-promotionalPage', 'Imprimatur':'imprimatur',
-    'Publication Data':'publicationData', 'Foreword':'x-foreword',
-    'Preface':'preface', 'Table of Contents':'tableofContents',
-    'Alphabetical Contents':'x-alphabeticalContents',
-    'Table of Abbreviations':'x-tableofAbbreviations',
-    'Chronology':'x-chronology', 'Weights and Measures':'x-weightsandMeasures',
-    'Map Index':'x-mapIndex', 'NT Quotes from LXX':'x-ntQuotesfromLXX',
-    'Cover':'coverPage', 'Spine':'x-spine'
+    'Title Page': 'titlePage', 'Half Title Page': 'x-halfTitlePage',
+    'Promotional Page': 'x-promotionalPage', 'Imprimatur': 'imprimatur',
+    'Publication Data': 'publicationData', 'Foreword': 'x-foreword',
+    'Preface': 'preface', 'Table of Contents': 'tableofContents',
+    'Alphabetical Contents': 'x-alphabeticalContents',
+    'Table of Abbreviations': 'x-tableofAbbreviations',
+    'Chronology': 'x-chronology', 'Weights and Measures': 'x-weightsandMeasures',
+    'Map Index': 'x-mapIndex', 'NT Quotes from LXX': 'x-ntQuotesfromLXX',
+    'Cover': 'coverPage', 'Spine': 'x-spine'
     }
 
 introPeripherals = {
-    'Bible Introduction':'bible', 'Old Testament Introduction':'oldTestament',
-    'Pentateuch Introduction':'pentateuch', 'History Introduction':'history',
-    'Poetry Introduction':'poetry', 'Prophecy Introduction':'prophecy',
-    'New Testament Introduction':'newTestament',
-    'Gospels Introduction':'gospels', 'Acts Introduction':'acts',
-    'Epistles Introduction':'epistles', 'Letters Introduction':'letters',
-    'Deuterocanon Introduction':'deuterocanon'
+    'Bible Introduction': 'bible', 'Old Testament Introduction': 'oldTestament',
+    'Pentateuch Introduction': 'pentateuch', 'History Introduction': 'history',
+    'Poetry Introduction': 'poetry', 'Prophecy Introduction': 'prophecy',
+    'New Testament Introduction': 'newTestament',
+    'Gospels Introduction': 'gospels', 'Acts Introduction': 'acts',
+    'Epistles Introduction': 'epistles', 'Letters Introduction': 'letters',
+    'Deuterocanon Introduction': 'deuterocanon'
     }
 
 filename2osis = dict()
