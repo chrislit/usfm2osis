@@ -30,11 +30,33 @@
 """
 from __future__ import print_function, unicode_literals, absolute_import
 
+import multiprocessing
+import random
+import sys
+import re
+import codecs
+from encodings.aliases import aliases
+
+# pylint: disable=invalid-name
+if sys.version_info[0] == 3:  # pragma: no cover
+    _range = range
+    import queue as Queue
+else:  # pragma: no cover
+    _range = xrange
+    import Queue
+
+sys.path = sys.path[1:]
+from usfm2osis.util import verbosePrint
+from usfm2osis.convert import convertToOsis, osisSchema
+from usfm2osis.bookdata import bookDict, addBookDict, filename2osis
+from usfm2osis.sort import keynat, keycanon, keyusfm, keysupplied
+
+
 usfmVersion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
-osisVersion = '2.1.1' # http://www.bibletechnologies.net/osisCore.2.1.1.xsd
+osisVersion = '2.1.1'  # http://www.bibletechnologies.net/osisCore.2.1.1.xsd
 scriptVersion = '0.6.1'
 
-### Key to non-characters:
+# -- Key to non-characters:
 # Used   : \uFDD0\uFDD1\uFDD2\uFDD3\uFDD4\uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA
 #          \uFDDB\uFDDC\uFDDD\uFDDE\uFDDF\uFDE0\uFDE1\uFDE2\uFDE3\uFDE4\uFDE5
 #          \uFDE6
@@ -64,31 +86,9 @@ scriptVersion = '0.6.1'
 # \uFDE6 is5
 # \uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA\uFDDB\uFDDC\uFDDD\uFDDE sections
 
-import multiprocessing
-import random
-import sys
-import re
-import codecs
-from encodings.aliases import aliases
-
-sys.path = sys.path[1:]
-from usfm2osis.util import verbosePrint
-from usfm2osis.convert import convertToOsis, osisSchema
-from usfm2osis.bookdata import bookDict, addBookDict, filename2osis
-from usfm2osis.sort import keynat, keycanon, keyusfm, keysupplied
-
-# pylint: disable=invalid-name
-if sys.version_info[0] == 3: # pragma: no cover
-    _range = range
-    import queue as Queue
-else: # pragma: no cover
-    _range = xrange
-    import Queue
-
-
 osis2locBk = dict()
 loc2osisBk = dict()
-#filename2osis = dict()
+# filename2osis = dict()
 verbose = bool()
 ucs4 = (sys.maxunicode > 0xFFFF)
 
@@ -97,19 +97,18 @@ encoding = ''
 debug = False
 verbose = False
 
+
 def readIdentifiersFromOsis(filename):
     """Reads the USFM file and stores information about which Bible book it
     represents and localized abbrevations in global variables.
 
     Keyword arguments:
     filename -- a USFM filename
-
     """
-
     global encoding
     global loc2osisBk, osis2locBk
 
-    ### Processing starts here
+    #  Processing starts here
     if encoding:
         osis = codecs.open(filename, 'r', encoding).read().strip() + '\n'
     else:
@@ -121,24 +120,26 @@ def readIdentifiersFromOsis(filename):
             encoding = encoding.group(1).lower().strip()
             if encoding != 'utf-8':
                 if encoding in aliases:
-                    osis = codecs.open(filename, 'r', encoding).read().strip() + '\n'
+                    osis = codecs.open(filename, 'r',
+                                       encoding).read().strip() + '\n'
                 else:
-                    #print(('WARNING: Encoding "' + encoding + '" unknown, processing ' + filename + ' as UTF-8'))
+                    # print(('WARNING: Encoding "' + encoding +
+                    #       '" unknown, processing ' + filename + ' as UTF-8'))
                     encoding = 'utf-8'
 
-    # keep a copy of the OSIS book abbreviation for below (\toc3 processing) to store for mapping localized book names to/from OSIS
+    # keep a copy of the OSIS book abbreviation for below (\toc3 processing)
+    # to store for mapping localized book names to/from OSIS
     osisBook = re.search(r'\\id\s+([A-Z0-9]+)', osis)
     if osisBook:
         osisBook = bookDict[osisBook.group(1)]
         filename2osis[filename] = osisBook
 
-    locBook = re.search(r'\\toc3\b\s+(.+)\s*'+'\n', osis)
+    locBook = re.search(r'\\toc3\b\s+(.+)\s*' + '\n', osis)
     if locBook:
         locBook = locBook.group(1)
         if osisBook:
-            osis2locBk[osisBook]=locBook
-            loc2osisBk[locBook]=osisBook
-
+            osis2locBk[osisBook] = locBook
+            loc2osisBk[locBook] = osisBook
 
 def printUsage():
     """Prints usage statement."""
@@ -184,21 +185,20 @@ class Worker(multiprocessing.Process):
                 break
 
             # the actual processing
-            osis = convertToOsis(job, relaxedConformance, encoding, debug, verbose)
+            osis = convertToOsis(job, relaxedConformance, encoding, debug,
+                                 verbose)
             # TODO: move XML validation here?
 
             # store the result
-            self.result_queue.put((job,osis))
-
-
+            self.result_queue.put((job, osis))
 
 if __name__ == "__main__":
-    num_processes = max(1,multiprocessing.cpu_count()-1)
+    num_processes = max(1, multiprocessing.cpu_count()-1)
     num_jobs = num_processes
 
     encoding = ''
     relaxedConformance = False
-    inputFilesIdx = 2 # This marks the point in the sys.argv array, after which all values represent USFM files to be converted.
+    inputFilesIdx = 2  # This marks the point in the sys.argv array, after which all values represent USFM files to be converted.
     usfmDocList = list()
 
     if '-v' in sys.argv:
@@ -232,7 +232,7 @@ if __name__ == "__main__":
             if len(sys.argv) < i+1:
                 printUsage()
             osisFileName = sys.argv[i]
-            inputFilesIdx += 2 # increment 2, reflecting 2 args for -o
+            inputFilesIdx += 2  # increment 2, reflecting 2 args for -o
         else:
             osisFileName = osisWork + '.osis.xml'
 
@@ -241,7 +241,7 @@ if __name__ == "__main__":
             if len(sys.argv) < i+1:
                 printUsage()
             encoding = sys.argv[i]
-            inputFilesIdx += 2 # increment 2, reflecting 2 args for -e
+            inputFilesIdx += 2  # increment 2, reflecting 2 args for -e
 
         if '-r' in sys.argv:
             relaxedConformance = True
@@ -264,13 +264,13 @@ if __name__ == "__main__":
             elif sys.argv[i].startswith('u'):
                 sortKey = keyusfm
                 print('Sorting book files by USFM book number')
-            elif sys.argv[i].startswith('random'): # for testing only
+            elif sys.argv[i].startswith('random'):  # for testing only
                 sortKey = lambda filename: int(random.random()*256)
                 print('Sorting book files randomly')
             else:
                 sortKey = keysupplied
                 print('Leaving book files unsorted, in the order in which they were supplied')
-            inputFilesIdx += 2 # increment 2, reflecting 2 args for -s
+            inputFilesIdx += 2  # increment 2, reflecting 2 args for -s
         else:
             sortKey = keynat
             print('Sorting book files naturally')
@@ -299,8 +299,8 @@ if __name__ == "__main__":
         # collect the results off the queue
         osisSegment = dict()
         for i in usfmDocList:
-            k,v=result_queue.get()
-            osisSegment[k]=v
+            k, v = result_queue.get()
+            osisSegment[k] = v
 
         print('Assembling OSIS document')
         osisDoc = '<osis xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bibletechnologies.net/2003/OSIS/namespace http://www.bibletechnologies.net/osisCore.'+osisVersion+'.xsd">\n<osisText osisRefWork="Bible" xml:lang="und" osisIDWork="' + osisWork + '">\n<header>\n<work osisWork="' + osisWork + '"/>\n</header>\n'
@@ -314,11 +314,12 @@ if __name__ == "__main__":
 
         if validatexml:
             try:
-                #import urllib
+                # import urllib
                 from lxml import etree
                 print('Validating XML...')
-                osisParser = etree.XMLParser(schema = etree.XMLSchema(etree.XML(osisSchema)))
-                #osisParser = etree.XMLParser(schema = etree.XMLSchema(etree.XML(urllib.urlopen('http://www.bibletechnologies.net/osisCore.' + osisVersion + '.xsd').read())))
+                osisParser = etree.XMLParser(schema=etree
+                                             .XMLSchema(etree.XML(osisSchema)))
+                # osisParser = etree.XMLParser(schema = etree.XMLSchema(etree.XML(urllib.urlopen('http://www.bibletechnologies.net/osisCore.' + osisVersion + '.xsd').read())))
                 etree.fromstring(osisDoc, osisParser)
                 print('XML Valid')
             except ImportError:
@@ -334,7 +335,7 @@ if __name__ == "__main__":
 
         if unhandledTags:
             print('')
-            print(('Unhandled USFM tags: ' + ', '.join(sorted(unhandledTags)) + ' (' + str(len(unhandledTags)) + ' total)'))
+            print(('Unhandled USFM tags: ' + ', '.join(sorted(unhandledTags)) +
+                   ' (' + str(len(unhandledTags)) + ' total)'))
             if not relaxedConformance:
                 print('Consider using the -r option for relaxed markup processing')
-
