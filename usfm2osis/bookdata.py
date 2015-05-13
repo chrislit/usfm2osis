@@ -34,17 +34,17 @@ bookDict = {
     # NT
     'MAT': 'Matt', 'MRK': 'Mark', 'LUK': 'Luke', 'JHN': 'John', 'ACT': 'Acts',
     'ROM': 'Rom', '1CO': '1Cor', '2CO': '2Cor', 'GAL': 'Gal', 'EPH': 'Eph',
-    'PHP': 'Phil', 'COL': 'Col', '1TH': '1Thess', '2TH': '2Thess', '1TI': '1Tim',
-    '2TI': '2Tim', 'TIT': 'Titus', 'PHM': 'Phlm', 'HEB': 'Heb', 'JAS': 'Jas',
-    '1PE': '1Pet', '2PE': '2Pet', '1JN': '1John', '2JN': '2John', '3JN': '3John',
-    'JUD': 'Jude', 'REV': 'Rev',
+    'PHP': 'Phil', 'COL': 'Col', '1TH': '1Thess', '2TH': '2Thess',
+    '1TI': '1Tim', '2TI': '2Tim', 'TIT': 'Titus', 'PHM': 'Phlm', 'HEB': 'Heb',
+    'JAS': 'Jas', '1PE': '1Pet', '2PE': '2Pet', '1JN': '1John', '2JN': '2John',
+    '3JN': '3John', 'JUD': 'Jude', 'REV': 'Rev',
     # DC - Catholic
     'TOB': 'Tob', 'JDT': 'Jdt', 'ESG': 'EsthGr', 'WIS': 'Wis', 'SIR': 'Sir',
     'BAR': 'Bar', 'LJE': 'EpJer', 'S3Y': 'PrAzar', 'SUS': 'Sus', 'BEL': 'Bel',
     '1MA': '1Macc', '2MA': '2Macc',
     # DC - Eastern Orthodox
-    '3MA': '3Macc', '4MA': '4Macc', '1ES': '1Esd', '2ES': '2Esd', 'MAN': 'PrMan',
-    'PS2': 'AddPs',
+    '3MA': '3Macc', '4MA': '4Macc', '1ES': '1Esd', '2ES': '2Esd',
+    'MAN': 'PrMan', 'PS2': 'AddPs',
     # Rahlfs' LXX
     'ODA': 'Odes', 'PSS': 'PssSol',
     # Esdrae
@@ -71,8 +71,8 @@ bookDict = {
 addBookDict = {
     # -- Deprecated
     # Rahlfs
-    'JSA': 'JoshA', 'JDB': 'JudgB', 'TBS': 'TobS', 'SST': 'SusTh', 'DNT': 'DanTh',
-    'BLT': 'BelTh',
+    'JSA': 'JoshA', 'JDB': 'JudgB', 'TBS': 'TobS', 'SST': 'SusTh',
+    'DNT': 'DanTh', 'BLT': 'BelTh',
     # Esdrae
     '4ES': '4Ezra', '5ES': '5Ezra', '6ES': '6Ezra',
 
@@ -105,14 +105,15 @@ canonicalOrder = [
     # 3) NT-Apocrypha follow the NT
     # 4) Apostolic Fathers follow NT-deuterocanonicals
     # Specific principles:
-    # 1) Book representing parts of protocanonical books follow the primary book
+    # 1) Book representing parts of protocanonical books follow the primary
+    #    book
     # 2) Variants follow primary forms
-    # 3) Books that appear in only one tradition or Bible appear following their
-    #    traditional/attested antecedent
+    # 3) Books that appear in only one tradition or Bible appear following
+    #    their traditional/attested antecedent
 
     # There's no fool-proof way to order books without knowing the tradition
-    # ahead of time, but this ordering should get it right often for many common
-    # real Bibles.
+    # ahead of time, but this ordering should get it right often for many
+    # common real Bibles.
 
     # Front Matter
     'FRONT', 'INTRODUCTION',
@@ -133,9 +134,9 @@ canonicalOrder = [
     '4Macc',
 
     # NT
-    'Matt', 'Mark', 'Luke', 'John', 'Acts', 'Rom', '1Cor', '2Cor', 'Gal', 'Eph',
-    'Phil', 'Col', '1Thess', '2Thess', '1Tim', '2Tim', 'Titus', 'Phlm', 'Heb',
-    'Jas', '1Pet', '2Pet', '1John', '2John', '3John', 'Jude', 'Rev',
+    'Matt', 'Mark', 'Luke', 'John', 'Acts', 'Rom', '1Cor', '2Cor', 'Gal',
+    'Eph', 'Phil', 'Col', '1Thess', '2Thess', '1Tim', '2Tim', 'Titus', 'Phlm',
+    'Heb', 'Jas', '1Pet', '2Pet', '1John', '2John', '3John', 'Jude', 'Rev',
     # NT-Apocrypha
     'EpLao', 'EpCorPaul', '3Cor', 'PrEuth', 'DormJohn',
     # AF
@@ -153,15 +154,15 @@ usfmNumericOrder = [
     'FRONT', 'INTRODUCTION',
 
     # OT 01-39
-    'Gen', 'Exod', 'Lev', 'Num', 'Deut', 'Josh', 'Judg', 'Ruth', '1Sam', '2Sam',
-    '1Kgs', '2Kgs', '1Chr', '2Chr', 'Ezra', 'Neh', 'Esth', 'Job', 'Ps', 'Prov',
-    'Eccl', 'Song', 'Isa', 'Jer', 'Lam', 'Ezek', 'Dan', 'Hos', 'Joel', 'Amos',
-    'Obad', 'Jonah', 'Mic', 'Nah', 'Hab', 'Zeph', 'Hag', 'Zech', 'Mal',
+    'Gen', 'Exod', 'Lev', 'Num', 'Deut', 'Josh', 'Judg', 'Ruth', '1Sam',
+    '2Sam', '1Kgs', '2Kgs', '1Chr', '2Chr', 'Ezra', 'Neh', 'Esth', 'Job', 'Ps',
+    'Prov', 'Eccl', 'Song', 'Isa', 'Jer', 'Lam', 'Ezek', 'Dan', 'Hos', 'Joel',
+    'Amos', 'Obad', 'Jonah', 'Mic', 'Nah', 'Hab', 'Zeph', 'Hag', 'Zech', 'Mal',
 
     # NT 41-67
-    'Matt', 'Mark', 'Luke', 'John', 'Acts', 'Rom', '1Cor', '2Cor', 'Gal', 'Eph',
-    'Phil', 'Col', '1Thess', '2Thess', '1Tim', '2Tim', 'Titus', 'Phlm', 'Heb',
-    'Jas', '1Pet', '2Pet', '1John', '2John', '3John', 'Jude', 'Rev',
+    'Matt', 'Mark', 'Luke', 'John', 'Acts', 'Rom', '1Cor', '2Cor', 'Gal',
+    'Eph', 'Phil', 'Col', '1Thess', '2Thess', '1Tim', '2Tim', 'Titus', 'Phlm',
+    'Heb', 'Jas', '1Pet', '2Pet', '1John', '2John', '3John', 'Jude', 'Rev',
 
     # Apocrypha 68-87 (plus AddEsth, inserted after EsthGr)
     'Tob', 'Jdt', 'EsthGr', 'AddEsth', 'Wis', 'Sir', 'Bar', 'EpJer', 'PrAzar',
@@ -205,13 +206,15 @@ peripherals = {
     'Preface': 'preface', 'Table of Contents': 'tableofContents',
     'Alphabetical Contents': 'x-alphabeticalContents',
     'Table of Abbreviations': 'x-tableofAbbreviations',
-    'Chronology': 'x-chronology', 'Weights and Measures': 'x-weightsandMeasures',
-    'Map Index': 'x-mapIndex', 'NT Quotes from LXX': 'x-ntQuotesfromLXX',
+    'Chronology': 'x-chronology',
+    'Weights and Measures': 'x-weightsandMeasures', 'Map Index': 'x-mapIndex',
+    'NT Quotes from LXX': 'x-ntQuotesfromLXX',
     'Cover': 'coverPage', 'Spine': 'x-spine'
     }
 
 introPeripherals = {
-    'Bible Introduction': 'bible', 'Old Testament Introduction': 'oldTestament',
+    'Bible Introduction': 'bible',
+    'Old Testament Introduction': 'oldTestament',
     'Pentateuch Introduction': 'pentateuch', 'History Introduction': 'history',
     'Poetry Introduction': 'poetry', 'Prophecy Introduction': 'prophecy',
     'New Testament Introduction': 'newTestament',
