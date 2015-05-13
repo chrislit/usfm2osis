@@ -35,7 +35,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: GNU General Public License v3 or later \
-        (GPLv3+)',
+(GPLv3+)',
         'Operating System :: OS Independent',
         'Natural Language :: English',
         'Intended Audience :: Religion',
