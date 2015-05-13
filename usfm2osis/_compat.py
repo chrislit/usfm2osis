@@ -21,11 +21,11 @@ from __future__ import unicode_literals
 import sys
 
 # pylint: disable=invalid-name
-if sys.version_info[0] == 3: # pragma: no cover
+if sys.version_info[0] == 3:  # pragma: no cover
     _range = range
     _unicode = str
     _unichr = chr
-else: # pragma: no cover
+else:  # pragma: no cover
     _range = xrange
     _unicode = unicode
     _unichr = unichr
