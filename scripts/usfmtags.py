@@ -19,16 +19,9 @@ The full text of the GNU General Public License is available at:
 """
 
 from __future__ import print_function, unicode_literals
-
-date = '$Date: 2013-07-23 08:52:52 -0700 (Tue, 23 Jul 2013) $'
-rev = '$Rev: 438 $'
-
-USFMversion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
-
 import re, sys, codecs
 
-date = date.replace('$', '').strip()[6:16]
-rev = rev.replace('$', '').strip()[5:]
+USFMversion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
 
 simpleTags = (['\\id', '\\ide', '\\sts', '\\rem', '\\h', '\\toc1', '\\toc2',
                '\\toc3', '\\ip', '\\ipi', '\\im', '\\imi', '\\ipq', '\\imq',
@@ -82,7 +75,6 @@ def main(argv):
 
 def printUsage():
     print('usfmtags.py <USFM filenames|wildcard>')
-    print(' Revision: ' + rev + ' (' + date + ')')
     print('')
     print(' This utility will scan USFM files and print two lists of all '+
           'unique tags in them.')
