@@ -155,8 +155,8 @@ def printUsage():
     print('  -r               enable relaxed markup processing (for non-standard USFM)')
     print('  -s mode          set book sorting mode: natural (default), alpha, canonical,')
     print('                     usfm, random, none')
-    print('  -t number        set the number of separate processes to use (one less than')
-    print('                   your processor count, by default)')
+    print('  -t number        set the number of separate processes to use (your maximum')
+    print('                     thread count by default)')
     print('  -v               verbose feedback')
     print('  -x               disable XML validation')
     print('')
@@ -195,7 +195,7 @@ class Worker(multiprocessing.Process):
             self.result_queue.put((job, osis))
 
 if __name__ == "__main__":
-    num_processes = max(1, multiprocessing.cpu_count()-1)
+    num_processes = max(1, multiprocessing.cpu_count())
     num_jobs = num_processes
 
     encoding = ''
