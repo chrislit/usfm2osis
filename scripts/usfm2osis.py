@@ -155,6 +155,8 @@ def printUsage():
     print('  -r               enable relaxed markup processing (for non-standard USFM)')
     print('  -s mode          set book sorting mode: natural (default), alpha, canonical,')
     print('                     usfm, random, none')
+    print('  -t number        set the number of separate processes to use (one less than')
+    print('                   your processor count, by default)')
     print('  -v               verbose feedback')
     print('  -x               disable XML validation')
     print('')
@@ -221,6 +223,16 @@ if __name__ == "__main__":
         verbose = True
     else:
         debug = False
+
+    if '-t' in sys.argv:
+        i = sys.argv.index('-t')+1
+        if len(sys.argv) < i+1:
+            printUsage()
+        try:
+            num_processes = max(1, int(sys.argv[i]))
+            inputFilesIdx += 2  # increment 2, reflecting 2 args for -t
+        except ValueError:
+            printUsage()
 
     if '-h' in sys.argv or '--help' in sys.argv or len(sys.argv) < 3:
         printUsage()
