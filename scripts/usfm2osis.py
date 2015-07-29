@@ -35,6 +35,8 @@ import random
 import sys
 import re
 import codecs
+import os
+import pkgutil
 from encodings.aliases import aliases
 
 # pylint: disable=invalid-name
@@ -47,10 +49,11 @@ else:  # pragma: no cover
 
 sys.path = sys.path[1:]
 from usfm2osis.util import verbosePrint
-from usfm2osis.convert import convertToOsis, osisSchema
+from usfm2osis.convert import convertToOsis
 from usfm2osis.bookdata import bookDict, addBookDict, filename2osis
 from usfm2osis.sort import keynat, keycanon, keyusfm, keysupplied
 
+import usfm2osis
 
 usfmVersion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
 osisVersion = '2.1.1'  # http://www.bibletechnologies.net/osisCore.2.1.1.xsd
@@ -326,12 +329,23 @@ if __name__ == "__main__":
 
         if validatexml:
             try:
-                # import urllib
                 from lxml import etree
                 print('Validating XML...')
+                #import tempfile
+                #xml_xsd = pkgutil.get_data('usfm2osis', 'schemas/xml.xsd')
+                #print(xml_xsd)
+                #temp_xml_xsd = tempfile.NamedTemporaryFile('w', delete=False)
+                #temp_xml_xsd.write(xml_xsd)
+                #temp_xml_xsd.close()
+                osisSchema = pkgutil.get_data('usfm2osis', 'schemas/osisCore.2.1.1.xsd').decode("utf-8")
+                #print(temp_xml_xsd.name)
+                #print('file://'+temp_xml_xsd.name)
+                replacement = os.path.dirname(usfm2osis.__file__)+'/schemas/xml.xsd'
+                osisSchema = bytes(osisSchema.replace('http://www.w3.org/2001/xml.xsd', replacement), 'utf-8')
                 osisParser = etree.XMLParser(schema=etree
-                                             .XMLSchema(etree.XML(osisSchema)))
-                # osisParser = etree.XMLParser(schema = etree.XMLSchema(etree.XML(urllib.urlopen('http://www.bibletechnologies.net/osisCore.' + osisVersion + '.xsd').read())))
+                                             .XMLSchema(etree.XML(osisSchema)),
+                                             no_network=True)
+                #os.unlink(temp_xml_xsd.name))
                 etree.fromstring(osisDoc, osisParser)
                 print('XML Valid')
             except ImportError:

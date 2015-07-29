@@ -24,6 +24,7 @@ setup(
     download_url='https://github.com/chrislit/usfm2osis/archive/master.zip',
     keywords=['OSIS', 'USFM', 'Bible'],
     license='GPLv3+',
+    zip_safe=False,
     classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
@@ -44,5 +45,6 @@ setup(
         'Topic :: Text Processing :: Markup :: XML'
     ],
     long_description='\n\n'.join([readfile(f) for f in ('README.rst',)]),
-    scripts=['scripts/usfm2osis.py', 'scripts/usfmtags.py']
+    scripts=['scripts/usfm2osis.py', 'scripts/usfmtags.py'],
+    package_data={'usfm2osis': ['schemas/*.xsd']}
 )
