@@ -103,7 +103,7 @@ verbose = False
 
 def readIdentifiersFromOsis(filename):
     """Reads the USFM file and stores information about which Bible book it
-    represents and localized abbrevations in global variables.
+    represents and localized abbreviations in global variables.
 
     Keyword arguments:
     filename -- a USFM filename
