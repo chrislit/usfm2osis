@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-""""usfm2osis.py
+""""usfm2osis
  Copyright 2012-2015 by Christopher C. Little
 
  This program is free software: you can redistribute it and/or modify
@@ -146,9 +146,9 @@ def readIdentifiersFromOsis(filename):
 
 def printUsage():
     """Prints usage statement."""
-    print(('usfm2osis.py -- USFM ' + usfmVersion + ' to OSIS ' + osisVersion + ' converter version ' + scriptVersion))
+    print(('usfm2osis -- USFM ' + usfmVersion + ' to OSIS ' + osisVersion + ' converter version ' + scriptVersion))
     print('')
-    print('Usage: usfm2osis.py <osisWork> [OPTION] ...  <USFM filename|wildcard> ...')
+    print('Usage: usfm2osis <osisWork> [OPTION] ...  <USFM filename|wildcard> ...')
     print('')
     print('  -d               debug mode (single-threaded, verbose output)')
     print('  -e ENCODING      input encoding override (default is to read the USFM file\'s')
@@ -165,7 +165,7 @@ def printUsage():
     print('')
     print('As an example, if you want to generate the osisWork <Bible.KJV> and your USFM')
     print('  are located in the ./KJV folder, enter:')
-    print('    python usfm2osis.py Bible.KJV ./KJV/*.usfm')
+    print('    python usfm2osis Bible.KJV ./KJV/*.usfm')
     verbosePrint('', verbose)
     verbosePrint('Supported encodings: ' + ', '.join(aliases), verbose)
 
