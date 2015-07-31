@@ -21,7 +21,7 @@ Tools for converting Bibles from USFM to OSIS XML
 
 ::
 
-    Usage: usfm2osis.py <osisWork> [OPTION] ...  <USFM filename|wildcard> ...')
+    Usage: usfm2osis.py <osisWork> [OPTION] ...  <USFM filename|wildcard> ...
       -d               debug mode (single-threaded, verbose output)
       -e ENCODING      input encoding override (default is to read the USFM file's
                          \ide value or assume UTF-8 encoding in its absence)
@@ -30,6 +30,8 @@ Tools for converting Bibles from USFM to OSIS XML
       -r               enable relaxed markup processing (for non-standard USFM)
       -s mode          set book sorting mode: natural (default), alpha, canonical,
                          usfm, random, none
+      -t number        set the number of separate processes to use (your maximum
+                          thread count by default)
       -v               verbose feedback
       -x               disable XML validation
 
