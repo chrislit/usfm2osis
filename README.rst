@@ -21,7 +21,7 @@ Tools for converting Bibles from USFM to OSIS XML
 
 ::
 
-    Usage: usfm2osis.py <osisWork> [OPTION] ...  <USFM filename|wildcard> ...
+    Usage: usfm2osis <osisWork> [OPTION] ...  <USFM filename|wildcard> ...
       -d               debug mode (single-threaded, verbose output)
       -e ENCODING      input encoding override (default is to read the USFM file's
                          \ide value or assume UTF-8 encoding in its absence)
@@ -37,4 +37,4 @@ Tools for converting Bibles from USFM to OSIS XML
 
     As an example, if you want to generate the osisWork <Bible.KJV> and your USFM
       are located in the ./KJV folder, enter:
-        python usfm2osis.py Bible.KJV ./KJV/*.usfm
+        python usfm2osis Bible.KJV ./KJV/*.usfm
