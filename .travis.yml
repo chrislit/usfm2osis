@@ -6,8 +6,9 @@ python:
   - 3.2
   - 3.3
   - 3.4
-  - nightly
+  - 3.5-dev
   - pypy3
+#  - nightly
 
 notifications:
   email: false
