@@ -22,16 +22,17 @@ Tools for converting Bibles from USFM to OSIS XML
 ::
 
     Usage: usfm2osis <osisWork> [OPTION] ...  <USFM filename|wildcard> ...
+      -h, --help       print this usage information
       -d               debug mode (single-threaded, verbose output)
       -e ENCODING      input encoding override (default is to read the USFM file's
                          \ide value or assume UTF-8 encoding in its absence)
-      -h, --help       print this usage information
       -o FILENAME      output filename (default is: <osisWork>.osis.xml)
       -r               enable relaxed markup processing (for non-standard USFM)
-      -s mode          set book sorting mode: natural (default), alpha, canonical,
+      -s MODE          set book sorting mode: natural (default), alpha, canonical,
                          usfm, random, none
-      -t number        set the number of separate processes to use (your maximum
+      -t NUM           set the number of separate processes to use (your maximum
                           thread count by default)
+      -l LANG          set the language value to a BCP 47 code (\'und\' by default)
       -v               verbose feedback
       -x               disable XML validation
 

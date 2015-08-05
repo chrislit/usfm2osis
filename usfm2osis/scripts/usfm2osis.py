@@ -150,16 +150,17 @@ def printUsage():
     print('')
     print('Usage: usfm2osis <osisWork> [OPTION] ...  <USFM filename|wildcard> ...')
     print('')
+    print('  -h, --help       print this usage information')
     print('  -d               debug mode (single-threaded, verbose output)')
     print('  -e ENCODING      input encoding override (default is to read the USFM file\'s')
     print('                     \\ide value or assume UTF-8 encoding in its absence)')
-    print('  -h, --help       print this usage information')
     print('  -o FILENAME      output filename (default is: <osisWork>.osis.xml)')
     print('  -r               enable relaxed markup processing (for non-standard USFM)')
-    print('  -s mode          set book sorting mode: natural (default), alpha, canonical,')
+    print('  -s MODE          set book sorting mode: natural (default), alpha, canonical,')
     print('                     usfm, random, none')
-    print('  -t number        set the number of separate processes to use (your maximum')
+    print('  -t NUM           set the number of separate processes to use (your maximum')
     print('                     thread count by default)')
+    print('  -l LANG          set the language value to a BCP 47 code (\'und\' by default)')
     print('  -v               verbose feedback')
     print('  -x               disable XML validation')
     print('')
@@ -202,6 +203,7 @@ def main(args=None):
 
     num_processes = max(1, multiprocessing.cpu_count())
     num_jobs = num_processes
+    lang_code = 'und'
 
     encoding = ''
     relaxedConformance = False
@@ -236,6 +238,16 @@ def main(args=None):
         try:
             num_processes = max(1, int(sys.argv[i]))
             inputFilesIdx += 2  # increment 2, reflecting 2 args for -t
+        except ValueError:
+            printUsage()
+
+    if '-l' in sys.argv:
+        i = sys.argv.index('-l')+1
+        if len(sys.argv) < i+1:
+            printUsage()
+        try:
+            lang_code = sys.argv[i]
+            inputFilesIdx += 2  # increment 2, reflecting 2 args for -l
         except ValueError:
             printUsage()
 
@@ -320,7 +332,7 @@ def main(args=None):
             osisSegment[k] = v
 
         print('Assembling OSIS document')
-        osisDoc = '<osis xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bibletechnologies.net/2003/OSIS/namespace http://www.bibletechnologies.net/osisCore.'+osisVersion+'.xsd">\n<osisText osisRefWork="Bible" xml:lang="und" osisIDWork="' + osisWork + '">\n<header>\n<work osisWork="' + osisWork + '"/>\n</header>\n'
+        osisDoc = '<osis xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bibletechnologies.net/2003/OSIS/namespace http://www.bibletechnologies.net/osisCore.'+osisVersion+'.xsd">\n<osisText osisRefWork="Bible" xml:lang="' + lang_code + '" osisIDWork="' + osisWork + '">\n<header>\n<work osisWork="' + osisWork + '"/>\n</header>\n'
 
         unhandledTags = set()
         for doc in usfmDocList:
