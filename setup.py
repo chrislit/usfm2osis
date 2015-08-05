@@ -45,6 +45,9 @@ setup(
         'Topic :: Text Processing :: Markup :: XML'
     ],
     long_description='\n\n'.join([readfile(f) for f in ('README.rst',)]),
-    scripts=['scripts/usfm2osis', 'scripts/usfmtags'],
-    package_data={'usfm2osis': ['schemas/*.xsd']}
+    #scripts=['scripts/usfm2osis', 'scripts/usfmtags'],
+    package_data={'usfm2osis': ['schemas/*.xsd']},
+    entry_points = {'console_scripts':
+                    ['usfm2osis = usfm2osis.scripts.usfm2osis:main',
+                     'usfmtags = usfm2osis.scripts.usfmtags:main']}
 )

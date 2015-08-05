@@ -197,7 +197,9 @@ class Worker(multiprocessing.Process):
             # store the result
             self.result_queue.put((job, osis))
 
-if __name__ == "__main__":
+def main(args=None):
+    global bookDict
+
     num_processes = max(1, multiprocessing.cpu_count())
     num_jobs = num_processes
 
@@ -356,3 +358,6 @@ if __name__ == "__main__":
                    ' (' + str(len(unhandledTags)) + ' total)'))
             if not relaxedConformance:
                 print('Consider using the -r option for relaxed markup processing')
+
+if __name__ == "__main__":
+    main()

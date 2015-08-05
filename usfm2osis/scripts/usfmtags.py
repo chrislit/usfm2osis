@@ -52,10 +52,12 @@ digitTags = {'\\imt', '\\is', '\\iq', '\\io', '\\mt', '\\mte', '\\ms', '\\s',
              '\\tcr'}
 
 
-def main(argv):
+def main(args=None):
     tagSet = set()
     knownSet = set()
     unknownSet = set()
+
+    argv=sys.argv
 
     if '-h' in argv or '--help' in argv or len(argv) < 2:
         printUsage()
@@ -87,4 +89,4 @@ def printUsage():
     exit()
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main()
