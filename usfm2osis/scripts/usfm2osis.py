@@ -39,6 +39,14 @@ import os
 import pkgutil
 from encodings.aliases import aliases
 
+# sys.path = sys.path[1:]
+from usfm2osis.util import verbose_print
+from usfm2osis.convert import ConvertToOSIS
+from usfm2osis.bookdata import book_dict, add_book_dict, filename_to_osis
+from usfm2osis.sort import key_natural, key_canon, key_usfm, key_supplied
+
+import usfm2osis
+
 # pylint: disable=invalid-name
 if sys.version_info[0] == 3:  # pragma: no cover
     _range = range
@@ -46,14 +54,6 @@ if sys.version_info[0] == 3:  # pragma: no cover
 else:  # pragma: no cover
     _range = xrange
     import Queue
-
-sys.path = sys.path[1:]
-from usfm2osis.util import verbose_print
-from usfm2osis.convert import ConvertToOSIS
-from usfm2osis.bookdata import book_dict, add_book_dict, filename_to_osis
-from usfm2osis.sort import key_natural, key_canon, key_usfm, key_supplied
-
-import usfm2osis
 
 usfmVersion = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
 osisVersion = '2.1.1'  # http://www.bibletechnologies.net/osisCore.2.1.1.xsd
@@ -144,6 +144,7 @@ def read_identifiers_from_osis(filename):
             osis_to_loc_book[osis_book] = loc_book
             loc_to_osis_book[loc_book] = osis_book
 
+
 def print_usage():
     """Prints usage statement."""
     print(('usfm2osis -- USFM ' + usfmVersion + ' to OSIS ' + osisVersion + ' converter version ' + scriptVersion))
@@ -197,6 +198,7 @@ class Worker(multiprocessing.Process):
 
             # store the result
             self.result_queue.put((job, osis))
+
 
 def main(args=None):
     global book_dict
@@ -349,9 +351,8 @@ def main(args=None):
                 osis_schema = pkgutil.get_data('usfm2osis', 'schemas/osisCore.2.1.1.xsd').decode("utf-8")
                 replacement = os.path.dirname(usfm2osis.__file__)+'/schemas/xml.xsd'
                 osis_schema = bytes(osis_schema.replace('http://www.w3.org/2001/xml.xsd', replacement), 'utf-8')
-                osis_parser = etree.XMLParser(schema=etree
-                                             .XMLSchema(etree.XML(osis_schema)),
-                                             no_network=True)
+                osis_parser = etree.XMLParser(schema=etree.XMLSchema(etree.XML(osis_schema)),
+                                              no_network=True)
                 etree.fromstring(osis_doc, osis_parser)
                 print('XML Valid')
             except ImportError:

@@ -197,7 +197,7 @@ usfm_numeric_order = [
     ]
 
 special_books = ['FRONT', 'INTRODUCTION', 'BACK', 'CONCORDANCE', 'GLOSSARY',
-                'INDEX', 'GAZETTEER', 'X-OTHER']
+                 'INDEX', 'GAZETTEER', 'X-OTHER']
 
 peripherals = {
     'Title Page': 'titlePage', 'Half Title Page': 'x-halfTitlePage',

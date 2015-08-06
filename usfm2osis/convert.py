@@ -209,8 +209,8 @@ def ConvertToOSIS(sFile, relaxed_conformance=False, encoding='', debug=False,
         # \imq_text...
         # \ipr_text...
         p_type = {'ipi': 'x-indented', 'im': 'x-noindent',
-                 'imi': 'x-noindent-indented', 'ipq': 'x-quote',
-                 'imq': 'x-noindent-quote', 'ipr': 'x-right'}
+                  'imi': 'x-noindent-indented', 'ipq': 'x-quote',
+                  'imq': 'x-noindent-quote', 'ipr': 'x-right'}
         osis = re.sub(r'\\(ipi|im|ipq|imq|ipr)\s+(.*?)(?=(\\(i?m|i?p|lit|cls|tr|io[t\d]?|ipi|iq|i?li|iex?|s|c)\b|<(/?div|p|closer)\b))', lambda m: '\uFDD3<p type="' + p_type[m.group(1)] + '" subType="x-introduction">\n' + m.group(2) + '\uFDD3</p>\n', osis, flags=re.DOTALL)
 
         # \iq#_text...
@@ -465,16 +465,16 @@ def ConvertToOSIS(sFile, relaxed_conformance=False, encoding='', debug=False,
         # \psi # deprecated
         # \p# # deprecated
         p_type = {'pc': 'x-center', 'pr': 'x-right', 'm': 'x-noindent',
-                 'pmo': 'x-embedded-opening', 'pm': 'x-embedded',
-                 'pmc': 'x-embedded-closing', 'pmr': 'x-right',
-                 'pi': 'x-indented-1', 'pi1': 'x-indented-1',
-                 'pi2': 'x-indented-2', 'pi3': 'x-indented-3',
-                 'pi4': 'x-indented-4', 'pi5': 'x-indented-5',
-                 'mi': 'x-noindent-indented', 'nb': 'x-nobreak',
-                 'phi': 'x-indented-hanging', 'ps': 'x-nobreakNext',
-                 'psi': 'x-nobreakNext-indented', 'p1': 'x-level-1',
-                 'p2': 'x-level-2', 'p3': 'x-level-3', 'p4': 'x-level-4',
-                 'p5': 'x-level-5'}
+                  'pmo': 'x-embedded-opening', 'pm': 'x-embedded',
+                  'pmc': 'x-embedded-closing', 'pmr': 'x-right',
+                  'pi': 'x-indented-1', 'pi1': 'x-indented-1',
+                  'pi2': 'x-indented-2', 'pi3': 'x-indented-3',
+                  'pi4': 'x-indented-4', 'pi5': 'x-indented-5',
+                  'mi': 'x-noindent-indented', 'nb': 'x-nobreak',
+                  'phi': 'x-indented-hanging', 'ps': 'x-nobreakNext',
+                  'psi': 'x-nobreakNext-indented', 'p1': 'x-level-1',
+                  'p2': 'x-level-2', 'p3': 'x-level-3', 'p4': 'x-level-4',
+                  'p5': 'x-level-5'}
         osis = re.sub(r'\\(' + paragraphregex +
                       r')\s+(.*?)(?=(\\(i?m|i?p|lit|cls|tr|' + paragraphregex +
                       r')\b|<chapter eID|<(/?div|p|closer)\b))',
@@ -565,7 +565,7 @@ def ConvertToOSIS(sFile, relaxed_conformance=False, encoding='', debug=False,
         # \tc#_text...
         # \tcr#_text...
         t_type = {'th': ' role="label"', 'thr': ' role="label" type="x-right"',
-                 'tc': '', 'tcr': ' type="x-right"'}
+                  'tc': '', 'tcr': ' type="x-right"'}
         osis = re.sub(r'\\(thr?|tcr?)\d*\b\s*(.*?)(?=(\\t[hc]|</row))',
                       lambda m: '<cell' + t_type[m.group(1)] + '>' +
                       m.group(2) + '</cell>', osis, flags=re.DOTALL)
@@ -1186,7 +1186,7 @@ def ConvertToOSIS(sFile, relaxed_conformance=False, encoding='', debug=False,
                 newbc = ''
                 for cc in chap_chunks:
                     chap_value = re.search(r'<chapter osisID="[^\."]+\.([^"]+)',
-                                          cc)
+                                           cc)
                     if chap_value:
                         chap_value = chap_value.group(1)
                         cc = cc.replace('$CHAP$', chap_value)
@@ -1225,7 +1225,7 @@ def ConvertToOSIS(sFile, relaxed_conformance=False, encoding='', debug=False,
             osis = osis.replace(c, '')
 
         for end_block in ['p', 'div', 'note', 'l', 'lg', 'chapter', 'verse',
-                         'head', 'title', 'item', 'list']:
+                          'head', 'title', 'item', 'list']:
             osis = re.sub('\s+</'+end_block+'>', '</'+end_block+r'>\n', osis)
             osis = re.sub('\s+<'+end_block+'( eID=[^/>]+/>)',
                           '<'+end_block+r'\1' + '\n', osis)

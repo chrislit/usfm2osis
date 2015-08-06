@@ -57,7 +57,7 @@ def main(args=None):
     known_set = set()
     unknown_set = set()
 
-    argv=sys.argv
+    argv = sys.argv
 
     if '-h' in argv or '--help' in argv or len(argv) < 2:
         print_usage()
