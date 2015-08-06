@@ -48,10 +48,10 @@ else:  # pragma: no cover
     import Queue
 
 sys.path = sys.path[1:]
-from usfm2osis.util import verbosePrint
-from usfm2osis.convert import convertToOsis
-from usfm2osis.bookdata import bookDict, addBookDict, filename2osis
-from usfm2osis.sort import keynat, keycanon, keyusfm, keysupplied
+from usfm2osis.util import verbose_print
+from usfm2osis.convert import ConvertToOSIS
+from usfm2osis.bookdata import book_dict, add_book_dict, filename_to_osis
+from usfm2osis.sort import key_natural, key_canon, key_usfm, key_supplied
 
 import usfm2osis
 
@@ -89,19 +89,19 @@ scriptVersion = '0.6.1'
 # \uFDE6 is5
 # \uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA\uFDDB\uFDDC\uFDDD\uFDDE sections
 
-osis2locBk = dict()
-loc2osisBk = dict()
+osis_to_loc_book = dict()
+loc_to_osis_book = dict()
 # filename2osis = dict()
 verbose = bool()
 ucs4 = (sys.maxunicode > 0xFFFF)
 
-relaxedConformance = False
+relaxed_conformance = False
 encoding = ''
 debug = False
 verbose = False
 
 
-def readIdentifiersFromOsis(filename):
+def read_identifiers_from_osis(filename):
     """Reads the USFM file and stores information about which Bible book it
     represents and localized abbreviations in global variables.
 
@@ -132,19 +132,19 @@ def readIdentifiersFromOsis(filename):
 
     # keep a copy of the OSIS book abbreviation for below (\toc3 processing)
     # to store for mapping localized book names to/from OSIS
-    osisBook = re.search(r'\\id\s+([A-Z0-9]+)', osis)
-    if osisBook:
-        osisBook = bookDict[osisBook.group(1)]
-        filename2osis[filename] = osisBook
+    osis_book = re.search(r'\\id\s+([A-Z0-9]+)', osis)
+    if osis_book:
+        osis_book = book_dict[osis_book.group(1)]
+        filename_to_osis[filename] = osis_book
 
-    locBook = re.search(r'\\toc3\b\s+(.+)\s*' + '\n', osis)
-    if locBook:
-        locBook = locBook.group(1)
-        if osisBook:
-            osis2locBk[osisBook] = locBook
-            loc2osisBk[locBook] = osisBook
+    loc_book = re.search(r'\\toc3\b\s+(.+)\s*' + '\n', osis)
+    if loc_book:
+        loc_book = loc_book.group(1)
+        if osis_book:
+            osis_to_loc_book[osis_book] = loc_book
+            loc_to_osis_book[loc_book] = osis_book
 
-def printUsage():
+def print_usage():
     """Prints usage statement."""
     print(('usfm2osis -- USFM ' + usfmVersion + ' to OSIS ' + osisVersion + ' converter version ' + scriptVersion))
     print('')
@@ -167,8 +167,8 @@ def printUsage():
     print('As an example, if you want to generate the osisWork <Bible.KJV> and your USFM')
     print('  are located in the ./KJV folder, enter:')
     print('    python usfm2osis Bible.KJV ./KJV/*.usfm')
-    verbosePrint('', verbose)
-    verbosePrint('Supported encodings: ' + ', '.join(aliases), verbose)
+    verbose_print('', verbose)
+    verbose_print('Supported encodings: ' + ', '.join(aliases), verbose)
 
 
 class Worker(multiprocessing.Process):
@@ -191,7 +191,7 @@ class Worker(multiprocessing.Process):
                 break
 
             # the actual processing
-            osis = convertToOsis(job, relaxedConformance, encoding, debug,
+            osis = ConvertToOSIS(job, relaxed_conformance, encoding, debug,
                                  verbose)
             # TODO: move XML validation here?
 
@@ -199,32 +199,32 @@ class Worker(multiprocessing.Process):
             self.result_queue.put((job, osis))
 
 def main(args=None):
-    global bookDict
+    global book_dict
 
     num_processes = max(1, multiprocessing.cpu_count())
     num_jobs = num_processes
     lang_code = 'und'
 
     encoding = ''
-    relaxedConformance = False
-    inputFilesIdx = 2  # This marks the point in the sys.argv array, after which all values represent USFM files to be converted.
-    usfmDocList = list()
+    relaxed_conformance = False
+    input_files_index = 2  # This marks the point in the sys.argv array, after which all values represent USFM files to be converted.
+    usfm_doc_list = list()
 
     if '-v' in sys.argv:
         verbose = True
-        inputFilesIdx += 1
+        input_files_index += 1
     else:
         verbose = False
 
     if '-x' in sys.argv:
-        validatexml = False
-        inputFilesIdx += 1
+        validate_xml = False
+        input_files_index += 1
     else:
-        validatexml = True
+        validate_xml = True
 
     if '-d' in sys.argv:
         debug = True
-        inputFilesIdx += 1
+        input_files_index += 1
         num_processes = 1
         num_jobs = 1
         verbose = True
@@ -234,86 +234,87 @@ def main(args=None):
     if '-t' in sys.argv:
         i = sys.argv.index('-t')+1
         if len(sys.argv) < i+1:
-            printUsage()
+            print_usage()
         try:
             num_processes = max(1, int(sys.argv[i]))
-            inputFilesIdx += 2  # increment 2, reflecting 2 args for -t
+            input_files_index += 2  # increment 2, reflecting 2 args for -t
         except ValueError:
-            printUsage()
+            print_usage()
 
     if '-l' in sys.argv:
         i = sys.argv.index('-l')+1
         if len(sys.argv) < i+1:
-            printUsage()
+            print_usage()
         try:
             lang_code = sys.argv[i]
-            inputFilesIdx += 2  # increment 2, reflecting 2 args for -l
+            input_files_index += 2  # increment 2, reflecting 2 args for -l
         except ValueError:
-            printUsage()
+            print_usage()
 
     if '-h' in sys.argv or '--help' in sys.argv or len(sys.argv) < 3:
-        printUsage()
+        print_usage()
     else:
         osisWork = sys.argv[1]
 
         if '-o' in sys.argv:
             i = sys.argv.index('-o')+1
             if len(sys.argv) < i+1:
-                printUsage()
-            osisFileName = sys.argv[i]
-            inputFilesIdx += 2  # increment 2, reflecting 2 args for -o
+                print_usage()
+            osis_filename = sys.argv[i]
+            input_files_index += 2  # increment 2, reflecting 2 args for -o
         else:
-            osisFileName = osisWork + '.osis.xml'
+            osis_filename = osisWork + '.osis.xml'
 
         if '-e' in sys.argv:
             i = sys.argv.index('-e')+1
             if len(sys.argv) < i+1:
-                printUsage()
+                print_usage()
             encoding = sys.argv[i]
-            inputFilesIdx += 2  # increment 2, reflecting 2 args for -e
+            input_files_index += 2  # increment 2, reflecting 2 args for -e
 
         if '-r' in sys.argv:
-            relaxedConformance = True
-            bookDict = dict(list(bookDict.items()) + list(addBookDict.items()))
-            inputFilesIdx += 1
+            relaxed_conformance = True
+            book_dict = dict(list(book_dict.items()) +
+                             list(add_book_dict.items()))
+            input_files_index += 1
 
         if '-s' in sys.argv:
             i = sys.argv.index('-s')+1
             if len(sys.argv) < i+1:
-                printUsage()
+                print_usage()
             if sys.argv[i].startswith('a'):
                 sortKey = None
                 print('Sorting book files alphanumerically')
             elif sys.argv[i].startswith('na'):
-                sortKey = keynat
+                sortKey = key_natural
                 print('Sorting book files naturally')
             elif sys.argv[i].startswith('c'):
-                sortKey = keycanon
+                sortKey = key_canon
                 print('Sorting book files canonically')
             elif sys.argv[i].startswith('u'):
-                sortKey = keyusfm
+                sortKey = key_usfm
                 print('Sorting book files by USFM book number')
             elif sys.argv[i].startswith('random'):  # for testing only
                 sortKey = lambda filename: int(random.random()*256)
                 print('Sorting book files randomly')
             else:
-                sortKey = keysupplied
+                sortKey = key_supplied
                 print('Leaving book files unsorted, in the order in which they were supplied')
-            inputFilesIdx += 2  # increment 2, reflecting 2 args for -s
+            input_files_index += 2  # increment 2, reflecting 2 args for -s
         else:
-            sortKey = keynat
+            sortKey = key_natural
             print('Sorting book files naturally')
 
-        usfmDocList = sys.argv[inputFilesIdx:]
+        usfm_doc_list = sys.argv[input_files_index:]
 
-        for filename in usfmDocList:
-            readIdentifiersFromOsis(filename)
-        usfmDocList = sorted(usfmDocList, key=sortKey)
+        for filename in usfm_doc_list:
+            read_identifiers_from_osis(filename)
+        usfm_doc_list = sorted(usfm_doc_list, key=sortKey)
 
         # run
         # load up work queue
         work_queue = multiprocessing.Queue()
-        for job in usfmDocList:
+        for job in usfm_doc_list:
             work_queue.put(job)
 
         # create a queue to pass to workers to store the results
@@ -327,48 +328,48 @@ def main(args=None):
 
         # collect the results off the queue
         osisSegment = dict()
-        for i in usfmDocList:
+        for i in usfm_doc_list:
             k, v = result_queue.get()
             osisSegment[k] = v
 
         print('Assembling OSIS document')
-        osisDoc = '<osis xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bibletechnologies.net/2003/OSIS/namespace http://www.bibletechnologies.net/osisCore.'+osisVersion+'.xsd">\n<osisText osisRefWork="Bible" xml:lang="' + lang_code + '" osisIDWork="' + osisWork + '">\n<header>\n<work osisWork="' + osisWork + '"/>\n</header>\n'
+        osis_doc = '<osis xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bibletechnologies.net/2003/OSIS/namespace http://www.bibletechnologies.net/osisCore.'+osisVersion+'.xsd">\n<osisText osisRefWork="Bible" xml:lang="' + lang_code + '" osisIDWork="' + osisWork + '">\n<header>\n<work osisWork="' + osisWork + '"/>\n</header>\n'
 
-        unhandledTags = set()
-        for doc in usfmDocList:
-            unhandledTags |= set(re.findall(r'(\\[^\s]*)', osisSegment[doc]))
-            osisDoc += osisSegment[doc]
+        unhandled_tags = set()
+        for doc in usfm_doc_list:
+            unhandled_tags |= set(re.findall(r'(\\[^\s]*)', osisSegment[doc]))
+            osis_doc += osisSegment[doc]
 
-        osisDoc += '</osisText>\n</osis>\n'
+        osis_doc += '</osisText>\n</osis>\n'
 
-        if validatexml:
+        if validate_xml:
             try:
                 from lxml import etree
                 print('Validating XML...')
-                osisSchema = pkgutil.get_data('usfm2osis', 'schemas/osisCore.2.1.1.xsd').decode("utf-8")
+                osis_schema = pkgutil.get_data('usfm2osis', 'schemas/osisCore.2.1.1.xsd').decode("utf-8")
                 replacement = os.path.dirname(usfm2osis.__file__)+'/schemas/xml.xsd'
-                osisSchema = bytes(osisSchema.replace('http://www.w3.org/2001/xml.xsd', replacement), 'utf-8')
-                osisParser = etree.XMLParser(schema=etree
-                                             .XMLSchema(etree.XML(osisSchema)),
+                osis_schema = bytes(osis_schema.replace('http://www.w3.org/2001/xml.xsd', replacement), 'utf-8')
+                osis_parser = etree.XMLParser(schema=etree
+                                             .XMLSchema(etree.XML(osis_schema)),
                                              no_network=True)
-                etree.fromstring(osisDoc, osisParser)
+                etree.fromstring(osis_doc, osis_parser)
                 print('XML Valid')
             except ImportError:
                 print('For schema validation, install lxml')
-            except etree.XMLSyntaxError as eVal:
-                print('XML Validation error: ' + str(eVal))
+            except etree.XMLSyntaxError as error_val:
+                print('XML Validation error: ' + str(error_val))
 
-        osisFile = codecs.open(osisFileName, 'w', 'utf-8')
-        osisFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-        osisFile.write(osisDoc)
+        osis_file = codecs.open(osis_filename, 'w', 'utf-8')
+        osis_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        osis_file.write(osis_doc)
 
         print('Done!')
 
-        if unhandledTags:
+        if unhandled_tags:
             print('')
-            print(('Unhandled USFM tags: ' + ', '.join(sorted(unhandledTags)) +
-                   ' (' + str(len(unhandledTags)) + ' total)'))
-            if not relaxedConformance:
+            print(('Unhandled USFM tags: ' + ', '.join(sorted(unhandled_tags)) +
+                   ' (' + str(len(unhandled_tags)) + ' total)'))
+            if not relaxed_conformance:
                 print('Consider using the -r option for relaxed markup processing')
 
 if __name__ == "__main__":

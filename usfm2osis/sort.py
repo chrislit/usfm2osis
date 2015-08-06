@@ -18,13 +18,13 @@ The full text of the GNU General Public License is available at:
 """
 
 from __future__ import unicode_literals
-from .bookdata import canonicalOrder, usfmNumericOrder, filename2osis
+from .bookdata import canonical_order, usfm_numeric_order, filename_to_osis
 
 
 # BEGIN PSF-licensed segment
 # keynat from:
 # http://code.activestate.com/recipes/285264-natural-string-sorting/
-def keynat(string):
+def key_natural(string):
     """A natural sort helper function for sort() and sorted() without using
     regular expressions or exceptions.
 
@@ -49,32 +49,32 @@ def keynat(string):
 # END PSF-licensed segment
 
 
-def keycanon(filename):
+def key_canon(filename):
     """Sort helper function that orders according to canon position (defined in
     canonicalOrder list), returning canonical position or infinity if not in
     the list.
     """
-    if filename in filename2osis:
-        return canonicalOrder.index(filename2osis[filename])
+    if filename in filename_to_osis:
+        return canonical_order.index(filename_to_osis[filename])
     return float('inf')
 
 
-def keyusfm(filename):
+def key_usfm(filename):
     """Sort helper function that orders according to USFM book number (defined
     in usfmNumericOrder list), returning USFM book number or infinity if not in
     the list.
     """
-    if filename in filename2osis:
-        return usfmNumericOrder.index(filename2osis[filename])
+    if filename in filename_to_osis:
+        return usfm_numeric_order.index(filename_to_osis[filename])
     return float('inf')
 
 
-def keysupplied(filename):
+def key_supplied(filename):
     """Sort helper function that keeps the items in the order in which they
     were supplied (i.e. it doesn't sort at all), returning the number of times
     the function has been called.
     """
-    if not hasattr(keysupplied, "counter"):
-        keysupplied.counter = 0
-    keysupplied.counter += 1
-    return keysupplied.counter
+    if not hasattr(key_supplied, "counter"):
+        key_supplied.counter = 0
+    key_supplied.counter += 1
+    return key_supplied.counter

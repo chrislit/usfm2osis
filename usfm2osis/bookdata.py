@@ -19,7 +19,7 @@ The full text of the GNU General Public License is available at:
 
 from __future__ import unicode_literals
 
-bookDict = {
+book_dict = {
     # -- Known USFM Book codes from Paratext
     # -- Cf. http://ubs-icap.org/chm/usfm/2.35/index.html?book_codes.htm
     # OT
@@ -68,7 +68,7 @@ bookDict = {
     'GLO': 'GLOSSARY', 'TDX': 'INDEX', 'NDX': 'GAZETTEER', 'OTH': 'X-OTHER'
     }
 
-addBookDict = {
+add_book_dict = {
     # -- Deprecated
     # Rahlfs
     'JSA': 'JoshA', 'JDB': 'JudgB', 'TBS': 'TobS', 'SST': 'SusTh',
@@ -98,7 +98,7 @@ addBookDict = {
     }
 
 
-canonicalOrder = [
+canonical_order = [
     # General principles of ordering:
     # 1) Protocanonical books follow standard Protestant order within OT & NT
     # 2) Intertestamentals follow the OT
@@ -149,7 +149,7 @@ canonicalOrder = [
     'BACK', 'CONCORDANCE', 'GLOSSARY', 'INDEX', 'GAZETTEER', 'X-OTHER'
     ]
 
-usfmNumericOrder = [
+usfm_numeric_order = [
     # Front Matter
     'FRONT', 'INTRODUCTION',
 
@@ -196,7 +196,7 @@ usfmNumericOrder = [
     'BACK', 'CONCORDANCE', 'GLOSSARY', 'INDEX', 'GAZETTEER', 'X-OTHER'
     ]
 
-specialBooks = ['FRONT', 'INTRODUCTION', 'BACK', 'CONCORDANCE', 'GLOSSARY',
+special_books = ['FRONT', 'INTRODUCTION', 'BACK', 'CONCORDANCE', 'GLOSSARY',
                 'INDEX', 'GAZETTEER', 'X-OTHER']
 
 peripherals = {
@@ -212,7 +212,7 @@ peripherals = {
     'Cover': 'coverPage', 'Spine': 'x-spine'
     }
 
-introPeripherals = {
+intro_peripherals = {
     'Bible Introduction': 'bible',
     'Old Testament Introduction': 'oldTestament',
     'Pentateuch Introduction': 'pentateuch', 'History Introduction': 'history',
@@ -223,4 +223,4 @@ introPeripherals = {
     'Deuterocanon Introduction': 'deuterocanon'
     }
 
-filename2osis = dict()
+filename_to_osis = dict()

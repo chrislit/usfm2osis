@@ -21,28 +21,28 @@ from __future__ import unicode_literals
 import re
 import codecs
 from encodings.aliases import aliases
-from .bookdata import specialBooks, peripherals, introPeripherals, bookDict
-from .util import verbosePrint
+from .bookdata import special_books, peripherals, intro_peripherals, book_dict
+from .util import verbose_print
 from ._compat import _unichr
 
 
-def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
+def ConvertToOSIS(sFile, relaxed_conformance=False, encoding='', debug=False,
                   verbose=False):
     """Open a USFM file and return a string consisting of its OSIS equivalent.
 
     Keyword arguments:
     sFile -- Path to the USFM file to be converted
     """
-    verbosePrint(('Processing: ' + sFile), verbose)
+    verbose_print(('Processing: ' + sFile), verbose)
 
-    def cvtPreprocess(osis, relaxedConformance):
+    def cvt_preprocess(osis, relaxed_conformance):
         """Perform preprocessing on a USFM document, returning the processed
         text as a string.
         Removes excess spaces & CRs and escapes XML entities.
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
 
         """
@@ -61,17 +61,17 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtRelaxedConformanceRemaps(osis, relaxedConformance):
+    def cvt_relaxed_conformance_remaps(osis, relaxed_conformance):
         """Perform preprocessing on a USFM document, returning the processed
         text as a string.
         Remaps certain deprecated USFM tags to recommended alternatives.
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
-        if not relaxedConformance:
+        if not relaxed_conformance:
             return osis
 
         # \tr#: DEP: map to \tr
@@ -105,7 +105,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtIdentification(osis, relaxedConformance):
+    def cvt_identification(osis, relaxed_conformance):
         """Converts USFM **Identification** tags to OSIS, returning the
         processed text as a string.
 
@@ -113,7 +113,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \id_<CODE>_(Name of file, Book name, Language, Last edited, Date,
@@ -121,7 +121,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         osis = re.sub(r'\\id\s+([A-Z0-9]{3})\b\s*([^\\' + '\n]*?)\n' +
                       r'(.*)(?=\\id|$)',
                       lambda m: '\uFDD0<div type="book" osisID="' +
-                      bookDict[m.group(1)] + '">\n' +
+                      book_dict[m.group(1)] + '">\n' +
                       (('<!-- id comment - ' + m.group(2) + ' -->\n') if
                        m.group(2) else '') + m.group(3) +
                       '</div type="book">\uFDD0\n', osis, flags=re.DOTALL)
@@ -137,7 +137,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         osis = re.sub(r'\\rem\b\s+(.+)', r'<!-- rem - \1 -->', osis)
 
         # \restore_text...
-        if relaxedConformance:
+        if relaxed_conformance:
             osis = re.sub(r'\\restore\b\s+(.+)', r'<!-- restore - \1 -->',
                           osis)
 
@@ -162,7 +162,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtIntroductions(osis, relaxedConformance):
+    def cvt_introductions(osis, relaxed_conformance):
         """Converts USFM **Introduction** tags to OSIS, returning the processed
         text as a string.
 
@@ -172,7 +172,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \imt#_text...
@@ -208,10 +208,10 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         # \ipq_text...
         # \imq_text...
         # \ipr_text...
-        pType = {'ipi': 'x-indented', 'im': 'x-noindent',
+        p_type = {'ipi': 'x-indented', 'im': 'x-noindent',
                  'imi': 'x-noindent-indented', 'ipq': 'x-quote',
                  'imq': 'x-noindent-quote', 'ipr': 'x-right'}
-        osis = re.sub(r'\\(ipi|im|ipq|imq|ipr)\s+(.*?)(?=(\\(i?m|i?p|lit|cls|tr|io[t\d]?|ipi|iq|i?li|iex?|s|c)\b|<(/?div|p|closer)\b))', lambda m: '\uFDD3<p type="' + pType[m.group(1)] + '" subType="x-introduction">\n' + m.group(2) + '\uFDD3</p>\n', osis, flags=re.DOTALL)
+        osis = re.sub(r'\\(ipi|im|ipq|imq|ipr)\s+(.*?)(?=(\\(i?m|i?p|lit|cls|tr|io[t\d]?|ipi|iq|i?li|iex?|s|c)\b|<(/?div|p|closer)\b))', lambda m: '\uFDD3<p type="' + p_type[m.group(1)] + '" subType="x-introduction">\n' + m.group(2) + '\uFDD3</p>\n', osis, flags=re.DOTALL)
 
         # \iq#_text...
         osis = re.sub(r'\\iq\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' +
@@ -270,7 +270,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtTitles(osis, relaxedConformance):
+    def cvt_titles(osis, relaxed_conformance):
         """Converts USFM **Title, Heading, and Label** tags to OSIS, returning
         the processed text as a string.
 
@@ -279,7 +279,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \ms#_text...
@@ -300,7 +300,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         # \s#_text...
         osis = re.sub(r'\\s1?\s+(.+)', lambda m: '\uFDDA<div type="section"><title>' + m.group(1) + '</title>', osis)
         osis = re.sub('(\uFDDA<div type="section">[^\uFDD5\uFDD0\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA]+)', r'\1' + '</div>\uFDDA\n', osis, flags=re.DOTALL)
-        if relaxedConformance:
+        if relaxed_conformance:
             osis = re.sub(r'\\ss\s+', r'\\s2 ', osis)
             osis = re.sub(r'\\sss\s+', r'\\s3 ', osis)
         osis = re.sub(r'\\s2\s+(.+)', lambda m: '\uFDDB<div type="subSection"><title>' + m.group(1) + '</title>', osis)
@@ -336,7 +336,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtChaptersAndVerses(osis, relaxedConformance):
+    def cvt_chapters_and_verses(osis, relaxed_conformance):
         """Converts USFM **Chapter and Verse** tags to OSIS, returning the
         processed text as a string.
 
@@ -345,7 +345,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \c_#
@@ -357,7 +357,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         # \cp_#
         # \ca_#\ca*
-        def replaceChapterNumber(matchObject):
+        def replace_chapter_number(matchObject):
             """Regex helper function to replace chapter numbers from \c_# with
             values that appeared in \cp_# and \ca_#\ca*, returing the chapter
             text as a string.
@@ -383,7 +383,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
                                r'\1 $BOOK$.' + ca + '"', ctext)
             return ctext
         osis = re.sub(r'(<chapter [^<]+sID[^<]+/>.+?<chapter eID[^>]+/>)',
-                      replaceChapterNumber, osis, flags=re.DOTALL)
+                      replace_chapter_number, osis, flags=re.DOTALL)
 
         # \cl_
         osis = re.sub(r'\\cl\s+(.+)', '\uFDD4<title>' + r'\1</title>', osis)
@@ -397,7 +397,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         # \vp_#\vp*
         # \va_#\va*
-        def replaceVerseNumber(matchObject):
+        def replace_verse_number(matchObject):
             """Regex helper function to replace verse numbers from \v_# with
             values that appeared in \vp_#\vp* and \va_#\va*, returing the verse
             text as a string.
@@ -424,11 +424,11 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
             return vtext
 
         osis = re.sub(r'(<verse [^<]+sID[^<]+/>.+?<verse eID[^>]+/>)',
-                      replaceVerseNumber, osis, flags=re.DOTALL)
+                      replace_verse_number, osis, flags=re.DOTALL)
 
         return osis
 
-    def cvtParagraphs(osis, relaxedConformance):
+    def cvt_paragraphs(osis, relaxed_conformance):
         """Converts USFM **Paragraph** tags to OSIS, returning the processed
         text as a string.
 
@@ -437,11 +437,11 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         paragraphregex = 'pc|pr|m|pmo|pm|pmc|pmr|pi|pi1|pi2|pi3|pi4|pi5|mi|nb'
-        if relaxedConformance:
+        if relaxed_conformance:
             paragraphregex += '|phi|ps|psi|p1|p2|p3|p4|p5'
 
         # \p(_text...)
@@ -464,7 +464,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         # \ps # deprecated
         # \psi # deprecated
         # \p# # deprecated
-        pType = {'pc': 'x-center', 'pr': 'x-right', 'm': 'x-noindent',
+        p_type = {'pc': 'x-center', 'pr': 'x-right', 'm': 'x-noindent',
                  'pmo': 'x-embedded-opening', 'pm': 'x-embedded',
                  'pmc': 'x-embedded-closing', 'pmr': 'x-right',
                  'pi': 'x-indented-1', 'pi1': 'x-indented-1',
@@ -478,7 +478,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         osis = re.sub(r'\\(' + paragraphregex +
                       r')\s+(.*?)(?=(\\(i?m|i?p|lit|cls|tr|' + paragraphregex +
                       r')\b|<chapter eID|<(/?div|p|closer)\b))',
-                      lambda m: '\uFDD3<p type="' + pType[m.group(1)] +
+                      lambda m: '\uFDD3<p type="' + p_type[m.group(1)] +
                       '">\n' + m.group(2) + '\uFDD3</p>\n',
                       osis, flags=re.DOTALL)
 
@@ -499,7 +499,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtPoetry(osis, relaxedConformance):
+    def cvt_poetry(osis, relaxed_conformance):
         """Converts USFM **Poetry** tags to OSIS, returning the processed text
         as a string.
 
@@ -507,7 +507,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
 
@@ -544,7 +544,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtTables(osis, relaxedConformance):
+    def cvt_tables(osis, relaxed_conformance):
         """Converts USFM **Table** tags to OSIS, returning the processed text as
         a string.
 
@@ -552,7 +552,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \tr_
@@ -564,10 +564,10 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         # \thr#_text...
         # \tc#_text...
         # \tcr#_text...
-        tType = {'th': ' role="label"', 'thr': ' role="label" type="x-right"',
+        t_type = {'th': ' role="label"', 'thr': ' role="label" type="x-right"',
                  'tc': '', 'tcr': ' type="x-right"'}
         osis = re.sub(r'\\(thr?|tcr?)\d*\b\s*(.*?)(?=(\\t[hc]|</row))',
-                      lambda m: '<cell' + tType[m.group(1)] + '>' +
+                      lambda m: '<cell' + t_type[m.group(1)] + '>' +
                       m.group(2) + '</cell>', osis, flags=re.DOTALL)
 
         osis = re.sub(r'(<row>.*?</row>)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' +
@@ -576,7 +576,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def processNote(note):
+    def process_note(note):
         """Convert note-internal USFM tags to OSIS, returning the note as a
         string.
 
@@ -627,7 +627,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         note = note.replace('\uFDDF', '')
         return note
 
-    def cvtFootnotes(osis, relaxedConformance):
+    def cvt_footnotes(osis, relaxed_conformance):
         """Converts USFM **Footnote** tags to OSIS, returning the processed
         text as a string.
 
@@ -636,7 +636,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \f_+_...\f*
@@ -658,7 +658,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
                       osis, flags=re.DOTALL)
 
         osis = re.sub(r'(<note\b[^>]*?>.*?</note>)',
-                      lambda m: processNote(m.group(1)), osis, flags=re.DOTALL)
+                      lambda m: process_note(m.group(1)), osis, flags=re.DOTALL)
 
         # \fm_...\fm*
         osis = re.sub(r'\\fm\b\s(.+?)\\fm\*', r'<hi type="super">\1</hi>',
@@ -666,7 +666,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def processXref(note):
+    def process_xref(note):
         """Convert cross-reference note-internal USFM tags to OSIS, returning
         the cross-reference note as a string.
 
@@ -703,7 +703,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         note = re.sub(r'\\xt\b\s(.+?)(?=(\\x|' + '\uFDDF))',
                       '\uFDDF' + r'<reference>\1</reference>', note)
 
-        if relaxedConformance:
+        if relaxed_conformance:
             # TODO: move this to a concorance/index-specific section?
             # \xtSee..\xtSee*: Concordance and Names Index markup for an
             #                  alternate entry target reference.
@@ -723,7 +723,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         note = note.replace('\uFDDF', '')
         return note
 
-    def cvtCrossReferences(osis, relaxedConformance):
+    def cvt_cross_references(osis, relaxed_conformance):
         """Converts USFM **Cross Reference** tags to OSIS, returning the
         processed text as a string.
 
@@ -732,7 +732,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \x_+_...\x*
@@ -745,12 +745,12 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
                       osis, flags=re.DOTALL)
 
         osis = re.sub(r'(<note [^>]*?type="crossReference"[^>]*>.*?</note>)',
-                      lambda m: processXref(m.group(1)), osis, flags=re.DOTALL)
+                      lambda m: process_xref(m.group(1)), osis, flags=re.DOTALL)
 
         return osis
 
     # -- Special Text and Character Styles
-    def cvtSpecialText(osis, relaxedConformance):
+    def cvt_special_text(osis, relaxed_conformance):
         """Converts USFM **Special Text** tags to OSIS, returning the processed
         text as a string.
 
@@ -760,7 +760,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \add_...\add*
@@ -828,7 +828,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
                       r'<foreign>/1</foreign>',
                       osis, flags=re.DOTALL)
 
-        if relaxedConformance:
+        if relaxed_conformance:
             # \addpn...\addpn*
             osis = re.sub(r'\\addpn\s+(.+?)\\addpn\*',
                           r'<hi type="x-dotUnderline">\1</hi>',
@@ -852,7 +852,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtCharacterStyling(osis, relaxedConformance):
+    def cvt_character_styling(osis, relaxed_conformance):
         """Converts USFM **Character Styling** tags to OSIS, returning the
         processed text as a string.
 
@@ -861,7 +861,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \em_...\em*
@@ -896,7 +896,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtSpacingAndBreaks(osis, relaxedConformance):
+    def cvt_spacing_and_breaks(osis, relaxed_conformance):
         """Converts USFM **Spacing and Breaks** tags to OSIS, returning the
         processed text as a string.
 
@@ -904,7 +904,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # ~
@@ -920,7 +920,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtSpecialFeatures(osis, relaxedConformance):
+    def cvt_special_features(osis, relaxed_conformance):
         """Converts USFM **Special Feature** tags to OSIS, returning the
         processed text as a string.
 
@@ -929,11 +929,11 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \fig DESC|FILE|SIZE|LOC|COPY|CAP|REF\fig*
-        def makeFigure(matchObject):
+        def make_figure(matchObject):
             """Regex helper function to convert USFM \fig to OSIS <figure/>,
             returning the OSIS element as a string.
 
@@ -966,7 +966,8 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
                 figure += '<!-- fig LOC - ' + fig_loc + ' -->\n'
             figure += '</figure>'
             return figure
-        osis = re.sub(r'\\fig\b\s+([^\|]*)\s*\|([^\|]*)\s*\|([^\|]*)\s*\|([^\|]*)\s*\|([^\|]*)\s*\|([^\|]*)\s*\|([^\\]*)\s*\\fig\*', makeFigure, osis)
+
+        osis = re.sub(r'\\fig\b\s+([^\|]*)\s*\|([^\|]*)\s*\|([^\|]*)\s*\|([^\|]*)\s*\|([^\|]*)\s*\|([^\|]*)\s*\|([^\\]*)\s*\\fig\*', make_figure, osis)
 
         # \ndx_...\ndx*
         # TODO: tag with x-glossary instead of <index/>? Is <index/>
@@ -995,7 +996,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
                       r'\1<index index="Hebrew" level1="\1"/>\2',
                       osis, flags=re.DOTALL)
 
-        if relaxedConformance:
+        if relaxed_conformance:
             # \wr...\wr*
             osis = re.sub(r'\\wr\s+(.+?)(\s*)\\wr\*',
                           r'\1<index index="Reference" level1="\1"/>\2',
@@ -1003,7 +1004,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtPeripherals(osis, relaxedConformance):
+    def cvt_peripherals(osis, relaxed_conformance):
         """Converts USFM **Peripheral** tags to OSIS, returning the processed
         text as a string.
 
@@ -1011,11 +1012,11 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \periph
-        def tagPeriph(matchObject):
+        def tag_periph(matchObject):
             """Regex helper function to tag peripherals, returning a
             <div>-encapsulated string.
 
@@ -1023,13 +1024,13 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
             matchObject -- a regex match object containing the peripheral type
             and contents
             """
-            periphType, contents = matchObject.groups()[0:2]
+            periph_type, contents = matchObject.groups()[0:2]
             periph = '<div type="'
-            if periphType in peripherals:
-                periph += peripherals[periphType]
-            elif periphType in introPeripherals:
+            if periph_type in peripherals:
+                periph += peripherals[periph_type]
+            elif periph_type in intro_peripherals:
                 periph += ('introduction" subType="x-' +
-                           introPeripherals[periphType])
+                           intro_peripherals[periph_type])
             else:
                 periph += 'x-unknown'
             periph += '">\n' + contents + '</div>\n'
@@ -1037,11 +1038,11 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         osis = re.sub(r'\\periph\s+([^' + '\n' + r']+)\s*' + '\n' +
                       r'(.+?)(?=(</div type="book">|\\periph\s+))',
-                      tagPeriph, osis, flags=re.DOTALL)
+                      tag_periph, osis, flags=re.DOTALL)
 
         return osis
 
-    def cvtStudyBibleContent(osis, relaxedConformance):
+    def cvt_study_bible_content(osis, relaxed_conformance):
         """Converts USFM **Study Bible Content** tags to OSIS, returning the
         processed text as a string.
 
@@ -1049,7 +1050,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # \ef...\ef*
@@ -1061,7 +1062,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
                       ' type="study">' + m.group(2) + '\uFDDF</note>',
                       osis, flags=re.DOTALL)
         osis = re.sub(r'(<note\b[^>]*?>.*?</note>)',
-                      lambda m: processNote(m.group(1)),
+                      lambda m: process_note(m.group(1)),
                       osis, flags=re.DOTALL)
 
         # \ex...\ex*
@@ -1074,7 +1075,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
                       m.group(2) + '</reference>\uFDDF</note>',
                       osis, flags=re.DOTALL)
         osis = re.sub(r'(<note [^>]*?type="crossReference"[^>]*>.*?</note>)',
-                      lambda m: processXref(m.group(1)),
+                      lambda m: process_xref(m.group(1)),
                       osis, flags=re.DOTALL)
 
         # \esb...\esbex
@@ -1091,7 +1092,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def cvtPrivateUseExtensions(osis, relaxedConformance):
+    def cvt_private_use_extensions(osis, relaxed_conformance):
         """Converts USFM **\z namespace** tags to OSIS, returning the processed
         text as a string.
 
@@ -1099,7 +1100,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # -- We can't really know what these mean, but will preserve them as
@@ -1125,7 +1126,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         return osis
 
-    def processOsisIDs(osis):
+    def process_osisIDs(osis):
         """Perform postprocessing on an OSIS document, returning the processed
         text as a string.
         Recurses through chapter & verses, substituting acutal book IDs &
@@ -1139,60 +1140,62 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         # TODO: make sure that descending ranges generate invalid markup
         #       (osisID="") expand verse ranges, series
-        def expandRange(vRange):
+        def expand_range(v_range):
             """Expands a verse range into its constituent verses as a string.
 
             Keyword arguments:
             vRange -- A string of the lower & upper bounds of the range, with a
             hypen in between.
             """
-            vRange = re.findall(r'\d+', vRange)
+            v_range = re.findall(r'\d+', v_range)
             osisID = list()
-            for n in range(int(vRange[0]), int(vRange[1])+1):
+            for n in range(int(v_range[0]), int(v_range[1])+1):
                 osisID.append('$BOOK$.$CHAP$.'+str(n))
             return ' '.join(osisID)
+
         osis = re.sub(r'\$BOOK\$\.\$CHAP\$\.(\d+-\d+)"',
-                      lambda m: expandRange(m.group(1))+'"',
+                      lambda m: expand_range(m.group(1))+'"',
                       osis)
 
-        def expandSeries(vSeries):
+        def expand_series(v_series):
             """Expands a verse series (list) into its constituent verses as a
             string.
 
             Keyword arguments:
             vSeries -- A comma-separated list of verses.
             """
-            vSeries = re.findall(r'\d+', vSeries)
+            v_series = re.findall(r'\d+', v_series)
             osisID = list()
-            for n in vSeries:
+            for n in v_series:
                 osisID.append('$BOOK$.$CHAP$.'+str(n))
             return ' '.join(osisID)
+
         osis = re.sub(r'\$BOOK\$\.\$CHAP\$\.(\d+(,\d+)+)"',
-                      lambda m: expandSeries(m.group(1))+'"',
+                      lambda m: expand_series(m.group(1))+'"',
                       osis)
 
         # fill in book & chapter values
-        bookChunks = osis.split('\uFDD0')
+        book_chunks = osis.split('\uFDD0')
         osis = ''
-        for bc in bookChunks:
-            bookValue = re.search(r'<div type="book" osisID="([^"]+?)"', bc)
-            if bookValue:
-                bookValue = bookValue.group(1)
-                bc = bc.replace('$BOOK$', bookValue)
-                chapChunks = bc.split('\uFDD1')
+        for bc in book_chunks:
+            book_value = re.search(r'<div type="book" osisID="([^"]+?)"', bc)
+            if book_value:
+                book_value = book_value.group(1)
+                bc = bc.replace('$BOOK$', book_value)
+                chap_chunks = bc.split('\uFDD1')
                 newbc = ''
-                for cc in chapChunks:
-                    chapValue = re.search(r'<chapter osisID="[^\."]+\.([^"]+)',
+                for cc in chap_chunks:
+                    chap_value = re.search(r'<chapter osisID="[^\."]+\.([^"]+)',
                                           cc)
-                    if chapValue:
-                        chapValue = chapValue.group(1)
-                        cc = cc.replace('$CHAP$', chapValue)
+                    if chap_value:
+                        chap_value = chap_value.group(1)
+                        cc = cc.replace('$CHAP$', chap_value)
                     newbc += cc
                 bc = newbc
             osis += bc
         return osis
 
-    def osisReorderAndCleanup(osis):
+    def osis_reorder_and_cleanup(osis):
         """Perform postprocessing on an OSIS document, returning the processed
         text as a string.
         Reorders elements, strips non-characters, and cleans up excess spaces
@@ -1200,7 +1203,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         Keyword arguments:
         osis -- The document as a string.
-        relaxedConformance -- Boolean value indicating whether to process
+        relaxed_conformance -- Boolean value indicating whether to process
         non-standard & deprecated USFM tags.
         """
         # assorted re-orderings
@@ -1221,11 +1224,11 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         for c in '\uFDD0\uFDD1\uFDD2\uFDD3\uFDD4\uFDD5\uFDD6\uFDD7\uFDD8\uFDD9\uFDDA\uFDDB\uFDDC\uFDDD\uFDDE\uFDDF\uFDE0\uFDE1\uFDE2\uFDE3\uFDE4\uFDE5\uFDE6\uFDE7\uFDE8\uFDE9\uFDEA\uFDEB\uFDEC\uFDED\uFDEE\uFDEF':
             osis = osis.replace(c, '')
 
-        for endBlock in ['p', 'div', 'note', 'l', 'lg', 'chapter', 'verse',
+        for end_block in ['p', 'div', 'note', 'l', 'lg', 'chapter', 'verse',
                          'head', 'title', 'item', 'list']:
-            osis = re.sub('\s+</'+endBlock+'>', '</'+endBlock+r'>\n', osis)
-            osis = re.sub('\s+<'+endBlock+'( eID=[^/>]+/>)',
-                          '<'+endBlock+r'\1' + '\n', osis)
+            osis = re.sub('\s+</'+end_block+'>', '</'+end_block+r'>\n', osis)
+            osis = re.sub('\s+<'+end_block+'( eID=[^/>]+/>)',
+                          '<'+end_block+r'\1' + '\n', osis)
         osis = re.sub(' +((</[^>]+>)+) *', r'\1 ', osis)
 
         # strip extra spaces & newlines
@@ -1255,38 +1258,38 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
     osis = osis.lstrip(_unichr(0xFEFF))
 
     # call individual conversion processors in series
-    osis = cvtPreprocess(osis, relaxedConformance)
-    osis = cvtRelaxedConformanceRemaps(osis, relaxedConformance)
-    osis = cvtIdentification(osis, relaxedConformance)
-    osis = cvtIntroductions(osis, relaxedConformance)
-    osis = cvtTitles(osis, relaxedConformance)
-    osis = cvtChaptersAndVerses(osis, relaxedConformance)
-    osis = cvtParagraphs(osis, relaxedConformance)
-    osis = cvtPoetry(osis, relaxedConformance)
-    osis = cvtTables(osis, relaxedConformance)
-    osis = cvtFootnotes(osis, relaxedConformance)
-    osis = cvtCrossReferences(osis, relaxedConformance)
-    osis = cvtSpecialText(osis, relaxedConformance)
-    osis = cvtCharacterStyling(osis, relaxedConformance)
-    osis = cvtSpacingAndBreaks(osis, relaxedConformance)
-    osis = cvtSpecialFeatures(osis, relaxedConformance)
-    osis = cvtPeripherals(osis, relaxedConformance)
-    osis = cvtStudyBibleContent(osis, relaxedConformance)
-    osis = cvtPrivateUseExtensions(osis, relaxedConformance)
+    osis = cvt_preprocess(osis, relaxed_conformance)
+    osis = cvt_relaxed_conformance_remaps(osis, relaxed_conformance)
+    osis = cvt_identification(osis, relaxed_conformance)
+    osis = cvt_introductions(osis, relaxed_conformance)
+    osis = cvt_titles(osis, relaxed_conformance)
+    osis = cvt_chapters_and_verses(osis, relaxed_conformance)
+    osis = cvt_paragraphs(osis, relaxed_conformance)
+    osis = cvt_poetry(osis, relaxed_conformance)
+    osis = cvt_tables(osis, relaxed_conformance)
+    osis = cvt_footnotes(osis, relaxed_conformance)
+    osis = cvt_cross_references(osis, relaxed_conformance)
+    osis = cvt_special_text(osis, relaxed_conformance)
+    osis = cvt_character_styling(osis, relaxed_conformance)
+    osis = cvt_spacing_and_breaks(osis, relaxed_conformance)
+    osis = cvt_special_features(osis, relaxed_conformance)
+    osis = cvt_peripherals(osis, relaxed_conformance)
+    osis = cvt_study_bible_content(osis, relaxed_conformance)
+    osis = cvt_private_use_extensions(osis, relaxed_conformance)
 
-    osis = processOsisIDs(osis)
-    osis = osisReorderAndCleanup(osis)
+    osis = process_osisIDs(osis)
+    osis = osis_reorder_and_cleanup(osis)
 
     # change type on special books
-    for sb in specialBooks:
+    for sb in special_books:
         osis = osis.replace('<div type="book" osisID="' + sb + '">',
                             '<div type="' + sb.lower() + '">')
 
     if debug:
-        localUnhandledTags = set(re.findall(r'(\\[^\s]*)', osis))
-        if localUnhandledTags:
+        local_unhandled_tags = set(re.findall(r'(\\[^\s]*)', osis))
+        if local_unhandled_tags:
             print(('Unhandled USFM tags in ' + sFile + ': ' +
-                   ', '.join(localUnhandledTags) + ' (' +
-                   str(len(localUnhandledTags)) + ' total)'))
+                   ', '.join(local_unhandled_tags) + ' (' +
+                   str(len(local_unhandled_tags)) + ' total)'))
 
     return osis
