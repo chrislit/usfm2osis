@@ -211,7 +211,7 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         pType = {'ipi': 'x-indented', 'im': 'x-noindent',
                  'imi': 'x-noindent-indented', 'ipq': 'x-quote',
                  'imq': 'x-noindent-quote', 'ipr': 'x-right'}
-        osis = re.sub(r'\\(ipi|im|ipq|imq|ipr)\s+(.*?)(?=(\\(i?m|i?p|lit|cls|tr|io|iq|i?li|iex?|s|c)\b|<(/?div|p|closer)\b))', lambda m: '\uFDD3<p type="' + pType[m.group(1)] + '" subType="x-introduction">\n' + m.group(2) + '\uFDD3</p>\n', osis, flags=re.DOTALL)
+        osis = re.sub(r'\\(ipi|im|ipq|imq|ipr)\s+(.*?)(?=(\\(i?m|i?p|lit|cls|tr|io[t\d]?|ipi|iq|i?li|iex?|s|c)\b|<(/?div|p|closer)\b))', lambda m: '\uFDD3<p type="' + pType[m.group(1)] + '" subType="x-introduction">\n' + m.group(2) + '\uFDD3</p>\n', osis, flags=re.DOTALL)
 
         # \iq#_text...
         osis = re.sub(r'\\iq\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' +
@@ -230,8 +230,8 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
         # osis = re.sub('(<lg>.+?</lg>)', lambda m: m.group(1).replace('<lb type="x-p"/>', '</lg><lg>'), osis, flags=re.DOTALL) # re-handle \b that occurs within <lg>
 
         # \ili#_text...
-        osis = re.sub(r'\\ili\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' + r']|\\(ili\d?|c|p|iot|io\d?|iex?)\b|<(lb|title|item|\?div)\b))', '<item type="x-indent-1" subType="x-introduction">\uFDE0' + r'\1' + '\uFDE0</item>', osis, flags=re.DOTALL)
-        osis = re.sub(r'\\ili(\d)\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' + r']|\\(ili\d?|c|p|iot|io\d?|iex?)\b|<(lb|title|item|\?div)\b))', r'<item type="x-indent-\1" subType="x-introduction">\uFDE0' + r'\2' + '\uFDE0</item>', osis, flags=re.DOTALL)
+        osis = re.sub(r'\\ili\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' + r']|\\(ili\d?|c|p|io[t\d]?|iex?)\b|<(lb|title|item|\?div)\b))', '<item type="x-indent-1" subType="x-introduction">\uFDE0' + r'\1' + '\uFDE0</item>', osis, flags=re.DOTALL)
+        osis = re.sub(r'\\ili(\d)\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' + r']|\\(ili\d?|c|p|io[t\d]?|iex?)\b|<(lb|title|item|\?div)\b))', r'<item type="x-indent-\1" subType="x-introduction">\uFDE0' + r'\2' + '\uFDE0</item>', osis, flags=re.DOTALL)
         osis = osis.replace('\n</item>', '</item>\n')
         osis = re.sub('(<item [^\uFDD0\uFDD1\uFDD3\uFDD4]+</item>)',
                       '\uFDD3<list>' + r'\1' + '</list>\uFDD3',
@@ -239,10 +239,10 @@ def convertToOsis(sFile, relaxedConformance=False, encoding='', debug=False,
 
         # \iot_text...
         # \io#_text...(references range)
-        osis = re.sub(r'\\io\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' + r']|\\(iot|io\d?|iex?|c|p)\b|<(lb|title|item|\?div)\b))', '<item type="x-indent-1" subType="x-introduction">\uFDE1' + r'\1' + '\uFDE1</item>', osis, flags=re.DOTALL)
-        osis = re.sub(r'\\io(\d)\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' + r']|\\(iot|io\d?|iex?|c|p)\b|<(lb|title|item|\?div)\b))', r'<item type="x-indent-\1" subType="x-introduction">\uFDE1' + r'\2' + '\uFDE1</item>', osis, flags=re.DOTALL)
+        osis = re.sub(r'\\io\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' + r']|\\(io[t\d]?|iex?|c|p)\b|<(lb|title|item|\?div)\b))', '<item type="x-indent-1" subType="x-introduction">\uFDE1' + r'\1' + '\uFDE1</item>', osis, flags=re.DOTALL)
+        osis = re.sub(r'\\io(\d)\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' + r']|\\(io[t\d]?|iex?|c|p)\b|<(lb|title|item|\?div)\b))', r'<item type="x-indent-\1" subType="x-introduction">\uFDE1' + r'\2' + '\uFDE1</item>', osis, flags=re.DOTALL)
         osis = re.sub(r'\\iot\b\s*(.*?)(?=([' + '\uFDD0\uFDD1\uFDD3\uFDD4' +
-                      r']|\\(iot|io\d?|iex?|c|p)\b|<(lb|title|item|\?div)\b))',
+                      r']|\\(io[t\d]?|iex?|c|p)\b|<(lb|title|item|\?div)\b))',
                       '<item type="head">\uFDE1' + r'\1' +
                       '\uFDE1</item type="head">', osis, flags=re.DOTALL)
         osis = osis.replace('\n</item>', '</item>\n')
