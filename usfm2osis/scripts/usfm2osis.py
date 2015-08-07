@@ -42,7 +42,7 @@ from encodings.aliases import aliases
 # sys.path = sys.path[1:]
 from usfm2osis.util import verbose_print
 from usfm2osis.convert import ConvertToOSIS
-from usfm2osis.bookdata import BOOK_DICT, ADD_BOOK_DICT, filename_to_osis
+from usfm2osis.bookdata import BOOK_DICT, ADD_BOOK_DICT, FILENAME_TO_OSIS
 from usfm2osis.sort import key_natural, key_canon, key_usfm, key_supplied
 
 import usfm2osis
@@ -135,7 +135,7 @@ def read_identifiers_from_osis(filename):
     osis_book = re.search(r'\\id\s+([A-Z0-9]+)', osis)
     if osis_book:
         osis_book = book_dict[osis_book.group(1)]
-        filename_to_osis[filename] = osis_book
+        FILENAME_TO_OSIS[filename] = osis_book
 
     loc_book = re.search(r'\\toc3\b\s+(.+)\s*' + '\n', osis)
     if loc_book:

@@ -18,7 +18,7 @@ The full text of the GNU General Public License is available at:
 """
 
 from __future__ import unicode_literals
-from .bookdata import CANONICAL_ORDER, USFM_NUMERIC_ORDER, filename_to_osis
+from .bookdata import CANONICAL_ORDER, USFM_NUMERIC_ORDER, FILENAME_TO_OSIS
 
 
 # BEGIN PSF-licensed segment
@@ -54,8 +54,8 @@ def key_canon(filename):
     canonicalOrder list), returning canonical position or infinity if not in
     the list.
     """
-    if filename in filename_to_osis:
-        return CANONICAL_ORDER.index(filename_to_osis[filename])
+    if filename in FILENAME_TO_OSIS:
+        return CANONICAL_ORDER.index(FILENAME_TO_OSIS[filename])
     return float('inf')
 
 
@@ -64,8 +64,8 @@ def key_usfm(filename):
     in usfmNumericOrder list), returning USFM book number or infinity if not in
     the list.
     """
-    if filename in filename_to_osis:
-        return USFM_NUMERIC_ORDER.index(filename_to_osis[filename])
+    if filename in FILENAME_TO_OSIS:
+        return USFM_NUMERIC_ORDER.index(FILENAME_TO_OSIS[filename])
     return float('inf')
 
 

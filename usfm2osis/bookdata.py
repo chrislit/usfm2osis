@@ -222,4 +222,4 @@ INTRO_PERIPHERALS = {
     'Deuterocanon Introduction': 'deuterocanon'
     }
 
-filename_to_osis = dict()
+FILENAME_TO_OSIS = dict()
