@@ -97,7 +97,7 @@ ADD_BOOK_DICT = {
     'ADE': 'AddEsth'
     }
 
-CANONICAL_ORDER = [
+CANONICAL_ORDER = (
     # General principles of ordering:
     # 1) Protocanonical books follow standard Protestant order within OT & NT
     # 2) Intertestamentals follow the OT
@@ -146,9 +146,9 @@ CANONICAL_ORDER = [
 
     # Back Matter
     'BACK', 'CONCORDANCE', 'GLOSSARY', 'INDEX', 'GAZETTEER', 'X-OTHER'
-    ]
+    )
 
-USFM_NUMERIC_ORDER = [
+USFM_NUMERIC_ORDER = (
     # Front Matter
     'FRONT', 'INTRODUCTION',
 
@@ -193,10 +193,10 @@ USFM_NUMERIC_ORDER = [
 
     # Back Matter
     'BACK', 'CONCORDANCE', 'GLOSSARY', 'INDEX', 'GAZETTEER', 'X-OTHER'
-    ]
+    )
 
-SPECIAL_BOOKS = ['FRONT', 'INTRODUCTION', 'BACK', 'CONCORDANCE', 'GLOSSARY',
-                 'INDEX', 'GAZETTEER', 'X-OTHER']
+SPECIAL_BOOKS = ('FRONT', 'INTRODUCTION', 'BACK', 'CONCORDANCE', 'GLOSSARY',
+                 'INDEX', 'GAZETTEER', 'X-OTHER')
 
 PERIPHERALS = {
     'Title Page': 'titlePage', 'Half Title Page': 'x-halfTitlePage',
