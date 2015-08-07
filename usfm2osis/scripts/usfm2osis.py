@@ -42,7 +42,7 @@ from encodings.aliases import aliases
 # sys.path = sys.path[1:]
 from usfm2osis.util import verbose_print
 from usfm2osis.convert import ConvertToOSIS
-from usfm2osis.bookdata import book_dict, add_book_dict, filename_to_osis
+from usfm2osis.bookdata import BOOK_DICT, ADD_BOOK_DICT, filename_to_osis
 from usfm2osis.sort import key_natural, key_canon, key_usfm, key_supplied
 
 import usfm2osis
@@ -276,8 +276,8 @@ def main(args=None):
 
         if '-r' in sys.argv:
             relaxed_conformance = True
-            book_dict = dict(list(book_dict.items()) +
-                             list(add_book_dict.items()))
+            book_dict = dict(list(BOOK_DICT.items()) +
+                             list(ADD_BOOK_DICT.items()))
             input_files_index += 1
 
         if '-s' in sys.argv:

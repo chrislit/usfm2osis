@@ -18,7 +18,7 @@ The full text of the GNU General Public License is available at:
 """
 
 from __future__ import unicode_literals
-from .bookdata import canonical_order, usfm_numeric_order, filename_to_osis
+from .bookdata import CANONICAL_ORDER, USFM_NUMERIC_ORDER, filename_to_osis
 
 
 # BEGIN PSF-licensed segment
@@ -55,7 +55,7 @@ def key_canon(filename):
     the list.
     """
     if filename in filename_to_osis:
-        return canonical_order.index(filename_to_osis[filename])
+        return CANONICAL_ORDER.index(filename_to_osis[filename])
     return float('inf')
 
 
@@ -65,7 +65,7 @@ def key_usfm(filename):
     the list.
     """
     if filename in filename_to_osis:
-        return usfm_numeric_order.index(filename_to_osis[filename])
+        return USFM_NUMERIC_ORDER.index(filename_to_osis[filename])
     return float('inf')
 
 

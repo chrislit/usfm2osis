@@ -21,7 +21,7 @@ from __future__ import unicode_literals
 import re
 import codecs
 from encodings.aliases import aliases
-from .bookdata import special_books, peripherals, intro_peripherals, book_dict
+from .bookdata import SPECIAL_BOOKS, PERIPHERALS, INTRO_PERIPHERALS, BOOK_DICT
 from .util import verbose_print
 from ._compat import _unichr
 
@@ -121,7 +121,7 @@ def ConvertToOSIS(sFile, relaxed_conformance=False, encoding='', debug=False,
         osis = re.sub(r'\\id\s+([A-Z0-9]{3})\b\s*([^\\' + '\n]*?)\n' +
                       r'(.*)(?=\\id|$)',
                       lambda m: '\uFDD0<div type="book" osisID="' +
-                      book_dict[m.group(1)] + '">\n' +
+                      BOOK_DICT[m.group(1)] + '">\n' +
                       (('<!-- id comment - ' + m.group(2) + ' -->\n') if
                        m.group(2) else '') + m.group(3) +
                       '</div type="book">\uFDD0\n', osis, flags=re.DOTALL)
@@ -1026,11 +1026,11 @@ def ConvertToOSIS(sFile, relaxed_conformance=False, encoding='', debug=False,
             """
             periph_type, contents = matchObject.groups()[0:2]
             periph = '<div type="'
-            if periph_type in peripherals:
-                periph += peripherals[periph_type]
-            elif periph_type in intro_peripherals:
+            if periph_type in PERIPHERALS:
+                periph += PERIPHERALS[periph_type]
+            elif periph_type in INTRO_PERIPHERALS:
                 periph += ('introduction" subType="x-' +
-                           intro_peripherals[periph_type])
+                           INTRO_PERIPHERALS[periph_type])
             else:
                 periph += 'x-unknown'
             periph += '">\n' + contents + '</div>\n'
@@ -1281,7 +1281,7 @@ def ConvertToOSIS(sFile, relaxed_conformance=False, encoding='', debug=False,
     osis = osis_reorder_and_cleanup(osis)
 
     # change type on special books
-    for sb in special_books:
+    for sb in SPECIAL_BOOKS:
         osis = osis.replace('<div type="book" osisID="' + sb + '">',
                             '<div type="' + sb.lower() + '">')
 
