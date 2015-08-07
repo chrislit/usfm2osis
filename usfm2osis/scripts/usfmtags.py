@@ -23,9 +23,9 @@ import re
 import sys
 import codecs
 
-USFM_version = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
+USFM_VERSION = '2.35'  # http://ubs-icap.org/chm/usfm/2.35/index.html
 
-simple_tags = {'\\id', '\\ide', '\\sts', '\\rem', '\\h', '\\toc1', '\\toc2',
+SIMPLE_TAGS = {'\\id', '\\ide', '\\sts', '\\rem', '\\h', '\\toc1', '\\toc2',
                '\\toc3', '\\ip', '\\ipi', '\\im', '\\imi', '\\ipq', '\\imq',
                '\\ipr', '\\ib', '\\ili', '\\iot', '\\ior', '\\ior*', '\\iex',
                '\\iqt', '\\iqt*', '\\imte', '\\ie', '\\mr', '\\sr', '\\r',
@@ -47,7 +47,7 @@ simple_tags = {'\\id', '\\ide', '\\sts', '\\rem', '\\h', '\\toc1', '\\toc2',
                '\\w*', '\\wg', '\\wg*', '\\wh', '\\wh*', '\\periph', '\\ef',
                '\\ef*', '\\ex', '\\ex*', '\\esb', '\\esbe', '\\cat', '\\z'}
 
-digit_tags = {'\\imt', '\\is', '\\iq', '\\io', '\\mt', '\\mte', '\\ms', '\\s',
+DIGIT_TAGS = {'\\imt', '\\is', '\\iq', '\\io', '\\mt', '\\mte', '\\ms', '\\s',
               '\\pi', '\\li', '\\ph', '\\q', '\\qm', '\\th', '\\thr', '\\tc',
               '\\tcr'}
 
@@ -67,9 +67,9 @@ def main(args=None):
             tag_set.update(set(re.findall(r'(\\[a-zA-Z0-9]+\b\*?)', text)))
 
         for tag in tag_set:
-            if tag in simple_tags:
+            if tag in SIMPLE_TAGS:
                 known_set.add(tag)
-            elif tag.rstrip('1234567890') in digit_tags:
+            elif tag.rstrip('1234567890') in DIGIT_TAGS:
                 known_set.add(tag)
             else:
                 unknown_set.add(tag)
@@ -84,7 +84,7 @@ def print_usage():
     print(' This utility will scan USFM files and print two lists of all ' +
           'unique tags in\nthem.')
     print(' The first list identifies all valid tags, identified in the USFM ' +
-          USFM_version + ' spec.')
+          USFM_VERSION + ' spec.')
     print(' The second list identifies tags unknown to that spec.')
     exit()
 
