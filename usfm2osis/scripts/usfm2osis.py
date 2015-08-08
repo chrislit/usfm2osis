@@ -109,7 +109,7 @@ def read_identifiers_from_osis(filename):
     filename -- a USFM filename
     """
     global encoding
-    global loc2osisBk, osis2locBk
+    global loc_to_osis_book, osis_to_loc_book
 
     #  Processing starts here
     if encoding:
@@ -134,7 +134,7 @@ def read_identifiers_from_osis(filename):
     # to store for mapping localized book names to/from OSIS
     osis_book = re.search(r'\\id\s+([A-Z0-9]+)', osis)
     if osis_book:
-        osis_book = book_dict[osis_book.group(1)]
+        osis_book = BOOK_DICT[osis_book.group(1)]
         FILENAME_TO_OSIS[filename] = osis_book
 
     loc_book = re.search(r'\\toc3\b\s+(.+)\s*' + '\n', osis)
@@ -201,7 +201,7 @@ class Worker(multiprocessing.Process):
 
 
 def main(args=None):
-    global book_dict
+    global BOOK_DICT
 
     num_processes = max(1, multiprocessing.cpu_count())
     num_jobs = num_processes
