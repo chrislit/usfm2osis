@@ -34,18 +34,18 @@ def key_natural(string):
     >>> sorted(items, key=keynat)
     ['1st', '9', '10th', 'a', 'Z']
     """
-    it = type(1)
-    r = []
-    for c in string:
-        if c.isdigit():
-            d = int(c)
-            if r and type(r[-1]) == it:
-                r[-1] = r[-1] * 10 + d
+    item = type(1)
+    sorted_list = []
+    for char in string:
+        if char.isdigit():
+            digit = int(char)
+            if sorted_list and type(sorted_list[-1]) == item:
+                sorted_list[-1] = sorted_list[-1] * 10 + digit
             else:
-                r.append(d)
+                sorted_list.append(digit)
         else:
-            r.append(c.lower())
-    return r
+            sorted_list.append(char.lower())
+    return sorted_list
 # END PSF-licensed segment
 
 
@@ -69,7 +69,7 @@ def key_usfm(filename):
     return float('inf')
 
 
-def key_supplied(filename):
+def key_supplied(dummy_val):
     """Sort helper function that keeps the items in the order in which they
     were supplied (i.e. it doesn't sort at all), returning the number of times
     the function has been called.
