@@ -194,7 +194,6 @@ class Worker(multiprocessing.Process):
             # the actual processing
             osis = ConvertToOSIS(job, relaxed_conformance, encoding, debug,
                                  verbose)
-            # TODO: move XML validation here?
 
             # store the result
             self.result_queue.put((job, osis))
